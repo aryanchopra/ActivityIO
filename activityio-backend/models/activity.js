@@ -1,14 +1,21 @@
 const mongoose = require("mongoose");
 const activitySchema = new mongoose.Schema({
-  date: { type: String, default: Date.now },
-  sleep: { type: Number, min: 0, max: 24 },
-  qualityofsleep: { type: Number, min: 1, max: 10 },
-  workout: { type: Number, min: 0, max: 6 },
-  qualityofday: { type: Number, min: 1, max: 10 },
-  meditate: Boolean,
+  date: { type: String, default: Date.now, required: true },
+  sleep: { type: Number, min: 0, max: 24, required: true },
+  qualityofsleep: { type: Number, min: 1, max: 10, required: true },
+  workout: { type: Number, min: 0, max: 6, required: true },
+  qualityofday: { type: Number, min: 1, max: 10, required: true },
+  meditate: { type: Boolean, required: true },
   project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Project",
+    name: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
+    },
+    hours: {
+      type: Number,
+      min: 0,
+      max: 24,
+    },
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
