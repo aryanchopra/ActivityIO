@@ -1,8 +1,13 @@
-const usersRouter = require("express").Router();
+const userRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-usersRouter.post("/", async (request, response, next) => {
+userRouter.get("/", async (request, response) => {
+  const users = await User.find({});
+  response.json(users);
+});
+
+userRouter.post("/", async (request, response, next) => {
   const body = request.body;
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
@@ -20,4 +25,4 @@ usersRouter.post("/", async (request, response, next) => {
   }
 });
 
-module.exports = usersRouter;
+module.exports = userRouter;
