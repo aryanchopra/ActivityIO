@@ -1,5 +1,4 @@
 const projectRouter = require("express").Router();
-const { response } = require("express");
 const Project = require("../models/project");
 const { userExtractor } = require("../utils/middleware");
 require("express-async-errors");
@@ -18,6 +17,7 @@ projectRouter.get("/:id", userExtractor, async (request, response) => {
   if (foundProject.user.toString() !== request.user.id) {
     response.status(401);
   }
+
   response.status(200).json(foundProject);
 });
 
