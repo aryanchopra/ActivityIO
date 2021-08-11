@@ -44,7 +44,7 @@ activityRouter.post("/", userExtractor, async (request, response) => {
     user: user.id,
     ...(body.project && {
       project: {
-        // id: body.project.id,
+        id: body.project.id,
         hours: body.project.hours,
       },
     }),

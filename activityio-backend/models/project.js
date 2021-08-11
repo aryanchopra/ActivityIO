@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const projectSchema = new mongoose.Schema({
   name: String,
   description: String,
-  started: { type: Date, default: Date.now() },
+  started: { type: Date, default: Date.now },
   completed: { type: Boolean, default: false },
   user: {
     type: mongoose.Schema.Types.ObjectId,
