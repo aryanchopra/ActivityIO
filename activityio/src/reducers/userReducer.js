@@ -1,25 +1,28 @@
-import loginService from "../services/login";
+import authService from "../services/auth";
 export const loginUser = (credentials) => {
   return async (dispatch) => {
     try {
-      const user = await loginService.login(credentials);
-      dispatch({
-        type: "SETUSER",
-        data: user,
-      });
+      console.log(credentials);
+      const user = await authService.login(credentials);
+      console.log(user);
+      // dispatch({
+      //   type: "SETUSER",
+      //   data: user,
+      // });
 
-      window.localStorage.setItem("loggedinUser", JSON.stringify(user));
+      // window.localStorage.setItem("loggedinUser", JSON.stringify(user));
     } catch (exception) {
-      dispatch({
-        type: "NEW_NOTIFICATION",
-        message: exception.response.data.error,
-      });
-      setTimeout(() => {
-        dispatch({
-          type: "NEW_NOTIFICATION",
-          message: "",
-        });
-      }, 5000);
+      // dispatch({
+      //   type: "NEW_NOTIFICATION",
+      //   message: exception.response.data.error,
+      // });
+      // setTimeout(() => {
+      //   dispatch({
+      //     type: "NEW_NOTIFICATION",
+      //     message: "",
+      //   });
+      // }, 5000);
+      console.log("inside reducer", exception.response.status);
     }
   };
 };
