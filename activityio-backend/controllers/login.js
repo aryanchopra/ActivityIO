@@ -3,16 +3,15 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-loginRouter.get("/", async (request, response, next) => {
+loginRouter.post("/", async (request, response, next) => {
   console.log("Login router called");
   const body = request.body;
-  // console.log(body);
+  console.log(body);
   if (!body.email || !body.password) {
     return response.status(400).send({
       error: "Provide username and password",
     });
   }
-  console.log(process.env);
   const email = body.email;
   const password = body.password;
 
