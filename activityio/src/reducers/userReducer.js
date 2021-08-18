@@ -4,7 +4,8 @@ export const loginUser = (credentials) => {
     try {
       console.log(credentials);
       const user = await authService.login(credentials);
-      console.log(user);
+      dispatch(setUser(user));
+      window.localStorage.setItem("loggedinUser", JSON.stringify(user));
       // dispatch({
       //   type: "SETUSER",
       //   data: user,
@@ -45,11 +46,9 @@ const userReducer = (state = "", action) => {
     case "SETUSER":
       return action.data;
 
-    case "LOGIN":
-      return action.data;
-
     case "LOGOUT":
       return "";
+
     default:
       return state;
   }

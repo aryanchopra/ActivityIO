@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import Landing from "./pages/landing";
+import Landing from "./pages/Landing";
+import Dashboard from "./pages/Dashboard";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "./reducers/userReducer";
 
 function App() {
-  const [user, setUser] = useState(false);
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.user);
+  useEffect(() => {
+    const saveduser = JSON.parse(window.localStorage.getItem("loggedinUser"));
+    if (saveduser) {
+      dispatch(setUser(saveduser));
+    }
+  }, []);
   if (!user) return <Landing />;
 
-  return <div className="App">{}</div>;
+  return <Dashboard user={user} />;
 }
 
 export default App;
