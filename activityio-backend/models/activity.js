@@ -6,6 +6,7 @@ const activitySchema = new mongoose.Schema({
   workout: { type: Number, min: 0, max: 6, required: true },
   qualityofday: { type: Number, min: 1, max: 10, required: true },
   meditate: { type: Boolean, required: true },
+  productivehours: { type: Number, required: true },
   project: {
     id: {
       type: mongoose.Schema.Types.ObjectId,

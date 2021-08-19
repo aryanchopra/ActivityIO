@@ -29,7 +29,8 @@ activityRouter.post("/", userExtractor, async (request, response) => {
     !body.qualityofsleep ||
     !body.workout ||
     !body.qualityofday ||
-    !body.meditate
+    !body.meditate ||
+    !body.productivehours
   ) {
     response.status(400).end();
   }
