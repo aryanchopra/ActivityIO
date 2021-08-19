@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 const AuthCard = () => {
-  const [CardState, setCardState] = useState(0);
+  const [CardState, setCardState] = useState(1);
   return (
     <div className="w-1/2 rounded-md bg-blue-300 mt-3 ">
       <div className="w-full bg-blue-500 rounded-t-md flex">

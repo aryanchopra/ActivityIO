@@ -1,6 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
+import { motion, AnimatePresence } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../reducers/userReducer";
+import { useHistory } from "react-router-dom";
+const DropDown = ({ DropdownOpen, dropdownref }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(logoutUser());
+    history.push("/");
+  };
+  return (
+    <AnimatePresence>
+      {DropdownOpen && (
+        <motion.div
+          className="absolute right-0 top-12 bg-blue-700 h-24"
+          style={{ width: dropdownref.current.offsetWidth }}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "6rem", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.1 }}
+        >
+          <button onClick={logout}>Logout</button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Navbar = () => {
   const user = useSelector((state) => state.user);
   const [DropdownOpen, setDropdownOpen] = useState(false);
@@ -28,15 +57,8 @@ const Navbar = () => {
             )}
           </span>
         </div>
+        <DropDown DropdownOpen={DropdownOpen} dropdownref={dropdownref} />
       </div>
-      {DropdownOpen && (
-        <div
-          className="transition transform ease-in delay-1000 absolute right-0 top-12 bg-blue-700 h-24"
-          style={{ width: dropdownref.current.offsetWidth }}
-        >
-          hi
-        </div>
-      )}
     </div>
   );
 };

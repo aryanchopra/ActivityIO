@@ -36,8 +36,13 @@ export const setUser = (user) => {
 };
 
 export const logoutUser = () => {
-  return {
-    type: "LOGOUT",
+  return (dispatch) => {
+    if (window.localStorage.getItem("loggedinUser"))
+      window.localStorage.removeItem("loggedinUser");
+    console.log("Logoutcalled");
+    dispatch({
+      type: "LOGOUT",
+    });
   };
 };
 
