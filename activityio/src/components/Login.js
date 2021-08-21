@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import authService from "../services/auth";
+import React from "react";
 import { useFormik } from "formik";
 import validator from "validator";
 import { loginUser } from "../reducers/userReducer";

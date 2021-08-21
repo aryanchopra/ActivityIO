@@ -1,10 +1,14 @@
 import authService from "../services/auth";
+import activityService from "../services/activity";
+import projectService from "../services/project";
 export const loginUser = (credentials) => {
   return async (dispatch) => {
     try {
-      console.log(credentials);
       const user = await authService.login(credentials);
       dispatch(setUser(user));
+      activityService.setToken(user.token);
+      projectService.setToken(user.token);
+      console.log(`setting tokens inside userreducer`);
       window.localStorage.setItem("loggedinUser", JSON.stringify(user));
       // dispatch({
       //   type: "SETUSER",
