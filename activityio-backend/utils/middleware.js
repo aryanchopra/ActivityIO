@@ -33,6 +33,7 @@ const errorHandler = (error, request, response, next) => {
 const tokenExtractor = (request, response, next) => {
   console.log("token extractor called");
   const authorization = request.get("Authorization");
+  console.log(authorization);
   if (authorization && authorization.startsWith("bearer ")) {
     const token = authorization.substring(7);
     request.token = token;

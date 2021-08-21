@@ -3,8 +3,8 @@ const Project = require("../models/project");
 const { userExtractor } = require("../utils/middleware");
 require("express-async-errors");
 
-projectRouter.get("/", async (request, response) => {
-  const projects = await Project.find({}).populate("user");
+projectRouter.get("/", userExtractor, async (request, response) => {
+  const projects = await Project.find({ user: request.user.id });
   response.json(projects);
 });
 
@@ -39,7 +39,7 @@ projectRouter.post("/", userExtractor, async (request, response) => {
     description: body.description,
     user: user.id,
     completed: body.completed ? body.completed : false,
-    date: body.date ? body.date : Date.now(),
+    started: body.started ? body.started : Date.now(),
   };
   const newProject = new Project(receivedproject);
   await newProject.save();

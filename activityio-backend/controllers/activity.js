@@ -18,7 +18,7 @@ activityRouter.get("/:id", userExtractor, async (request, response) => {
 activityRouter.post("/", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
-
+  console.log(body);
   if (!user) {
     response.status(401).json({
       error: "Invalid Token",
@@ -32,7 +32,7 @@ activityRouter.post("/", userExtractor, async (request, response) => {
     !body.meditate ||
     !body.productivehours
   ) {
-    response.status(400).end();
+    response.status(400);
   }
 
   const receivedactivity = {
@@ -41,8 +41,9 @@ activityRouter.post("/", userExtractor, async (request, response) => {
     qualityofsleep: body.qualityofsleep,
     workout: body.workout,
     qualityofday: body.qualityofday,
-    meditate: body.meditate,
+    meditate: body.meditate === "yes" ? true : false,
     user: user.id,
+    productivehours: body.productivehours,
     ...(body.project && {
       project: {
         id: body.project.id,

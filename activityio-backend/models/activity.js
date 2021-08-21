@@ -11,14 +11,12 @@ const activitySchema = new mongoose.Schema({
     id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
-      required: true,
     },
     hours: {
       type: Number,
       min: 0,
       max: 24,
       default: 0,
-      required: true,
     },
   },
   user: {
