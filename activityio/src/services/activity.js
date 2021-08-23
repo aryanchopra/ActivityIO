@@ -16,9 +16,16 @@ const addActivity = async (activity_obj) => {
   return response.data;
 };
 
-const getActivity = async (credentials) => {
-  const response = await axios.post(BASE_URL, credentials);
-  return response.data;
+const getActivity = async () => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  try {
+    const response = await axios.get(BASE_URL, config);
+    return response.data;
+  } catch (err) {
+    console.log("error", err);
+  }
 };
 
 export default { addActivity, getActivity, setToken };

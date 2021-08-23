@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import activityService from "../services/activity";
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import activityService from "../services/activity";
-import projectService from "../services/project";
-const ActivityForm = () => {
-  useEffect(() => {
-    console.log("component  rendered");
-    const getProjects = async () => {
-      const projects = await projectService.getProjects();
-      setUserProjects(projects);
-    };
-    getProjects();
-  }, []);
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [userProjects, setUserProjects] = useState([]);
+const ActivityForm = ({ projectnames }) => {
+  const dispatch = useDispatch();
   const activityForm = useFormik({
+    // enableReinitialize: true,
     initialValues: {
       date: new Date(),
       sleep: 6,
@@ -26,6 +18,9 @@ const ActivityForm = () => {
       qualityofday: 1,
       productivehours: 0,
       meditate: "no",
+      project: "no",
+      projectid: "none",
+      projecthours: 0,
     },
     onSubmit: async (values) => {
       console.log(values);
@@ -35,7 +30,16 @@ const ActivityForm = () => {
         console.log("error occured", err);
       }
     },
+    validate: (values) => {
+      let errors = {};
+
+      if (activityForm.values.project === "yes" && values.projectid === "none")
+        errors.project = "Required";
+
+      return errors;
+    },
   });
+  console.log(projectnames);
   return (
     <div>
       <form
@@ -117,6 +121,57 @@ const ActivityForm = () => {
           value={activityForm.values.qualityofday}
           required
         />
+        <div className="inline">
+          <span className="font-bold mr-4">Did you work on a project</span>
+          <label htmlFor="html">No</label>
+          <input
+            type="radio"
+            id="projectfalse"
+            name="project"
+            value="no"
+            onChange={activityForm.handleChange}
+            checked={activityForm.values.project === "no"}
+          />
+
+          <label htmlFor="css">Yes</label>
+          <input
+            type="radio"
+            id="projecttrue"
+            name="project"
+            value="yes"
+            onChange={activityForm.handleChange}
+            checked={activityForm.values.project === "yes"}
+            disabled={projectnames.length === 0}
+          />
+          {activityForm.values.project === "yes" && (
+            <div className="block">
+              <select
+                name="projectid"
+                onChange={activityForm.handleChange}
+                id="project"
+                value={activityForm.values.projectid}
+              >
+                <option value="none">Select a project</option>
+                {projectnames.map((project, idx) => {
+                  return (
+                    <option key={idx} value={project.id}>
+                      {project.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <input
+                type="number"
+                className="ml-3"
+                min="0"
+                max="24"
+                name="projecthours"
+                value={activityForm.values.projecthours}
+                onChange={activityForm.handleChange}
+              />
+            </div>
+          )}
+        </div>
 
         <label htmlFor="productivehours">Productive Hours</label>
 
@@ -131,8 +186,13 @@ const ActivityForm = () => {
         />
 
         <button
-          className="font-bold bg-blue-400 rounded-md px-4 py-2"
+          className={
+            activityForm.errors.project
+              ? "font-bold bg-red-400 rounded-md px-4 py-2 "
+              : "font-bold bg-blue-400 rounded-md px-4 py-2"
+          }
           type="submit"
+          disabled={activityForm.errors.project}
         >
           Submit
         </button>
@@ -142,12 +202,27 @@ const ActivityForm = () => {
 };
 
 const AddActivity = () => {
+  const projectnames = useSelector((state) =>
+    state.projects.map((project) => {
+      return {
+        name: project.name,
+        id: project.id,
+      };
+    })
+  );
   return (
     <div className="font-bold">
+      <div>
+        <Link to="/activities">
+          <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
+            Activities
+          </button>
+        </Link>
+      </div>
       <span className="text-xl text-center font-bold mt-2">
         Hey Aryan, how was your day?
       </span>
-      <ActivityForm />
+      <ActivityForm projectnames={projectnames} />
     </div>
   );
 };

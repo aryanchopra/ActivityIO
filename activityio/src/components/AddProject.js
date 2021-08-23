@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { newProject } from "../reducers/projectReducer";
+import { useDispatch } from "react-redux";
 import projectService from "../services/project";
 
 const ProjectForm = () => {
+  const dispatch = useDispatch();
   const projectForm = useFormik({
     initialValues: {
       started: new Date(),
@@ -14,12 +16,7 @@ const ProjectForm = () => {
       name: "",
     },
     onSubmit: async (values) => {
-      console.log(values);
-      try {
-        await projectService.addProject(values);
-      } catch (err) {
-        console.log("error occ", err);
-      }
+      dispatch(newProject(values));
     },
   });
   return (
