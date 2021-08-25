@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { newActivity } from "../reducers/activityReducer";
+import { newActivity, updateActivity } from "../reducers/activityReducer";
 
-const ActivityForm = ({ projectnames }) => {
+const ActivityForm = ({ projectnames, activity }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const activityForm = useFormik({
     // enableReinitialize: true,
     initialValues: {
-      date: new Date(),
-      sleep: 6,
-      qualityofsleep: 1,
-      workout: 0,
-      qualityofday: 1,
-      productivehours: 0,
-      meditate: "no",
-      project: "no",
-      projectid: "none",
-      projecthours: 0,
+      date: new Date(activity.date),
+      sleep: activity.sleep,
+      qualityofsleep: activity.qualityofsleep,
+      workout: activity.workout,
+      qualityofday: activity.qualityofday,
+      productivehours: activity.productivehours,
+      meditate: activity.meditate ? "yes" : "no",
+      project: activity.project ? "yes" : "no",
+      projectid: activity.project ? activity.project.id : 0,
+      projecthours: activity.project ? activity.project.hours : 0,
     },
     onSubmit: async (values) => {
-      dispatch(newActivity(values));
+      dispatch(updateActivity({ id: activity.id, ...values }));
+      history.push("/activities");
     },
     validate: (values) => {
       let errors = {};
@@ -188,20 +190,14 @@ const ActivityForm = ({ projectnames }) => {
           type="submit"
           disabled={activityForm.errors.project}
         >
-          Submit
+          Update
         </button>
       </form>
     </div>
   );
 };
 
-const AddActivity = () => {
-  useEffect(() => {
-    console.log("Add activity mounted");
-    return () => {
-      console.log("Add activity unmounted");
-    };
-  }, []);
+const EditActivity = ({ activity }) => {
   const projectnames = useSelector((state) =>
     state.projects.map((project) => {
       return {
@@ -210,22 +206,24 @@ const AddActivity = () => {
       };
     })
   );
-
-  return (
-    <div className="font-bold">
-      <div>
-        <Link to="/activities">
-          <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
-            Activities
-          </button>
-        </Link>
+  const history = useHistory();
+  if (!activity) history.push("");
+  else
+    return (
+      <div className="font-bold">
+        <div>
+          <Link to="/activities">
+            <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
+              Activities
+            </button>
+          </Link>
+        </div>
+        <span className="text-xl text-center font-bold mt-2">
+          Hey Aryan, how was your day?
+        </span>
+        <ActivityForm projectnames={projectnames} activity={activity} />
       </div>
-      <span className="text-xl text-center font-bold mt-2">
-        Hey Aryan, how was your day?
-      </span>
-      <ActivityForm projectnames={projectnames} />
-    </div>
-  );
+    );
 };
 
-export default AddActivity;
+export default EditActivity;

@@ -28,4 +28,34 @@ const getActivity = async () => {
   }
 };
 
-export default { addActivity, getActivity, setToken };
+const deleteActivity = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  try {
+    await axios.delete(BASE_URL + `/${id}`, config);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const updateActivity = async (updated_activity) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(
+    BASE_URL + `/${updated_activity.id}`,
+    updated_activity,
+    config
+  );
+  console.log("response: ", response);
+  return response.data;
+};
+
+export default {
+  addActivity,
+  getActivity,
+  setToken,
+  deleteActivity,
+  updateActivity,
+};

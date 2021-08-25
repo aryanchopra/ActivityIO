@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { newProject } from "../reducers/projectReducer";
 import { useDispatch } from "react-redux";
-import projectService from "../services/project";
+import { Link } from "react-router-dom";
+
+import { newProject } from "../reducers/projectReducer";
 
 const ProjectForm = () => {
   const dispatch = useDispatch();
@@ -69,8 +70,17 @@ const ProjectForm = () => {
 
 const AddProject = () => {
   return (
-    <div className="font-bold">
-      <ProjectForm />
+    <div>
+      <div>
+        <Link to="/projects">
+          <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
+            Projects
+          </button>
+        </Link>
+      </div>
+      <div className="font-bold">
+        <ProjectForm />
+      </div>
     </div>
   );
 };

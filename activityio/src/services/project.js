@@ -27,5 +27,15 @@ const getProjects = async () => {
     console.log("error", err);
   }
 };
+const deleteProject = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  try {
+    await axios.delete(BASE_URL + `/${id}`, config);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-export default { addProject, getProjects, setToken };
+export default { addProject, getProjects, setToken, deleteProject };

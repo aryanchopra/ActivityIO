@@ -20,7 +20,15 @@ export const newProject = (project) => {
     });
   };
 };
-
+export const deleteProject = (id) => {
+  return async (dispatch) => {
+    await projectService.deleteProject(id);
+    dispatch({
+      type: "DELETE_PROJECT",
+      data: id,
+    });
+  };
+};
 const projectReducer = (state = [], action) => {
   switch (action.type) {
     case "INIT_PROJECTS":
@@ -28,6 +36,9 @@ const projectReducer = (state = [], action) => {
 
     case "NEW_PROJECT":
       return state.concat(action.data);
+
+    case "DELETE_PROJECT":
+      return state.filter((project) => project.id !== action.data);
 
     default:
       return state;
