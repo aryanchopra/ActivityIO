@@ -46,5 +46,21 @@ projectRouter.post("/", userExtractor, async (request, response) => {
 
   response.status(200).json(newProject);
 });
-
+projectRouter.delete("/:id", userExtractor, async (request, response) => {
+  const id = request.params.id;
+  const foundProject = await Project.findById(id);
+  if (!foundProject) {
+    response.status(404);
+  }
+  console.log(foundProject);
+  console.log(request.user);
+  if (foundProject.user.toString() === request.user.id) {
+    await Project.findByIdAndRemove(id);
+    response.status(204).end();
+  } else {
+    response.status(403).json({
+      error: "Project does not belong to user",
+    });
+  }
+});
 module.exports = projectRouter;

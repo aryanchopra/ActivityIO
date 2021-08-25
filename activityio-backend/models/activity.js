@@ -16,7 +16,6 @@ const activitySchema = new mongoose.Schema({
       type: Number,
       min: 0,
       max: 24,
-      default: 0,
     },
   },
   user: {
