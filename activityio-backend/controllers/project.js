@@ -46,6 +46,26 @@ projectRouter.post("/", userExtractor, async (request, response) => {
 
   response.status(200).json(newProject);
 });
+
+projectRouter.put("/:id", userExtractor, async (request, response) => {
+  const body = request.body;
+  const user = request.user;
+  console.log("printing received body", body);
+  const receivedproject = {
+    name: body.name,
+    description: body.description,
+    user: user.id,
+    completed: body.completed === "yes" ? true : false,
+    started: body.started ? body.started : Date.now(),
+  };
+  const updatedproject = await Project.findByIdAndUpdate(
+    request.params.id,
+    receivedproject,
+    { new: true }
+  );
+  response.json(updatedproject);
+});
+
 projectRouter.delete("/:id", userExtractor, async (request, response) => {
   const id = request.params.id;
   const foundProject = await Project.findById(id);

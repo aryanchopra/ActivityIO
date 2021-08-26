@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteProject } from "../reducers/projectReducer";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
-import EditActivity from "./EditActivity";
+import EditProject from "./EditProject";
 
 const Projects = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Projects = () => {
   return (
     <Switch>
       <Route path="/projects/:id">
-        {matchedproject && <EditActivity project={matchedproject} />}
+        {matchedproject && <EditProject project={matchedproject} />}
       </Route>
       <Route path="">
         <div className="font-bold">

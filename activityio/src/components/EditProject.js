@@ -5,20 +5,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-import { newProject } from "../reducers/projectReducer";
+import { updateProject } from "../reducers/projectReducer";
 
-const ProjectForm = () => {
+const ProjectForm = ({ project }) => {
   const dispatch = useDispatch();
+
   const history = useHistory();
   const projectForm = useFormik({
     initialValues: {
-      started: new Date(),
-      completed: false,
-      description: "",
-      name: "",
+      started: new Date(project.started),
+      completed: project.completed ? "yes" : "no",
+      description: project.description,
+      name: project.name,
     },
     onSubmit: async (values) => {
-      dispatch(newProject(values));
+      dispatch(updateProject({ id: project.id, ...values }));
       history.push("/projects");
     },
   });
@@ -58,7 +59,28 @@ const ProjectForm = () => {
           dateFormat="dd/MM/yyyy"
           required
         />
+        <div className="inline">
+          <span className="font-bold mr-4">Complete?</span>
+          <label htmlFor="notcomplete">No</label>
+          <input
+            type="radio"
+            id="notcomplete"
+            name="completed"
+            value="no"
+            onChange={projectForm.handleChange}
+            checked={projectForm.values.completed === "no"}
+          />
 
+          <label htmlFor="complete">Yes</label>
+          <input
+            type="radio"
+            id="complete"
+            name="completed"
+            value="yes"
+            onChange={projectForm.handleChange}
+            checked={projectForm.values.completed === "yes"}
+          />
+        </div>
         <button
           className="font-bold bg-blue-400 rounded-md px-4 py-2"
           type="submit"
@@ -70,21 +92,24 @@ const ProjectForm = () => {
   );
 };
 
-const AddProject = () => {
-  return (
-    <div>
-      <div>
-        <Link to="/projects">
-          <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
-            Projects
-          </button>
-        </Link>
-      </div>
+const EditProject = ({ project }) => {
+  const history = useHistory();
+
+  console.log(project);
+  if (!project) history.push("");
+  else
+    return (
       <div className="font-bold">
-        <ProjectForm />
+        <div>
+          <Link to="/projects">
+            <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
+              Projects
+            </button>
+          </Link>
+        </div>
+        <ProjectForm project={project} />
       </div>
-    </div>
-  );
+    );
 };
 
-export default AddProject;
+export default EditProject;

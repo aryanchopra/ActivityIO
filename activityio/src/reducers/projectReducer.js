@@ -20,6 +20,16 @@ export const newProject = (project) => {
     });
   };
 };
+export const updateProject = (updated_project) => {
+  return async (dispatch) => {
+    const updatedProject = await projectService.updateProject(updated_project);
+    console.log("updated project", updatedProject);
+    dispatch({
+      type: "UPDATE_PROJECT",
+      data: updatedProject,
+    });
+  };
+};
 export const deleteProject = (id) => {
   return async (dispatch) => {
     await projectService.deleteProject(id);
@@ -40,6 +50,10 @@ const projectReducer = (state = [], action) => {
     case "DELETE_PROJECT":
       return state.filter((project) => project.id !== action.data);
 
+    case "UPDATE_PROJECT":
+      return state.map((project) =>
+        project.id === action.data.id ? action.data : project
+      );
     default:
       return state;
   }

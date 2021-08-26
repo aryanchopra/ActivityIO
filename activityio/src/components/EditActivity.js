@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { newActivity, updateActivity } from "../reducers/activityReducer";
+import { updateActivity } from "../reducers/activityReducer";
 
 const ActivityForm = ({ projectnames, activity }) => {
   const dispatch = useDispatch();

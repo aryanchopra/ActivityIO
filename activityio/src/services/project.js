@@ -38,4 +38,23 @@ const deleteProject = async (id) => {
   }
 };
 
-export default { addProject, getProjects, setToken, deleteProject };
+const updateProject = async (updated_project) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.put(
+    BASE_URL + `/${updated_project.id}`,
+    updated_project,
+    config
+  );
+  console.log("response project: ", response);
+  return response.data;
+};
+
+export default {
+  addProject,
+  getProjects,
+  setToken,
+  deleteProject,
+  updateProject,
+};
