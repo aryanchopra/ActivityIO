@@ -20,6 +20,7 @@ activityRouter.get("/:id", userExtractor, async (request, response) => {
 
   response.status(200).json(foundActivity);
 });
+
 activityRouter.post("/", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
@@ -61,6 +62,7 @@ activityRouter.post("/", userExtractor, async (request, response) => {
 
   response.status(200).json(newActivity);
 });
+
 activityRouter.put("/:id", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
@@ -88,6 +90,7 @@ activityRouter.put("/:id", userExtractor, async (request, response) => {
   );
   response.json(updatedactivity);
 });
+
 activityRouter.delete("/:id", userExtractor, async (request, response) => {
   const id = request.params.id;
   const foundActivity = await Activity.findById(id);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 import axios from "axios";
 
 const SidebarLink = ({ text, link }) => {
@@ -58,7 +58,7 @@ const Sidebar = () => {
         <SidebarLink text="Add Project" link="addproject" />
         {!googleUser.loggedin && (
           <GoogleLogin
-            clientId=""
+            clientId="957658607708-6gkdulbgpb86o1dcrr91ktiffjluu8hm.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
