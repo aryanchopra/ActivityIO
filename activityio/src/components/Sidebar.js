@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+import { useDispatch, useSelector } from "react-redux";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 import axios from "axios";
-
+import { loginGoogleUser } from "../reducers/oauthReducer";
 const SidebarLink = ({ text, link }) => {
   return (
     <Link className="w-1/2 mb-5" to={`/${link}`}>
@@ -13,10 +14,8 @@ const SidebarLink = ({ text, link }) => {
   );
 };
 const Sidebar = () => {
-  const [googleUser, setGoogleUser] = useState({
-    loggedin: false,
-    token: null,
-  });
+  const dispatch = useDispatch();
+  const googleUser = useSelector((state) => state.googleUser);
   useEffect(() => {
     if (googleUser.loggedin) {
       const config = {
@@ -47,23 +46,35 @@ const Sidebar = () => {
     }
   }, [googleUser]);
   const responseGoogle = (response) => {
+    console.log("inside response google");
+    console.log(response);
     if (response.tokenObj) {
-      setGoogleUser({ loggedin: true, token: response.tokenObj.access_token });
+      dispatch(
+        loginGoogleUser({
+          loggedin: true,
+          token: response.tokenObj.access_token,
+        })
+      );
     }
   };
+
   return (
     <div className="col-span-2 col-start-1 row-start-1 row-span-2 bg-blue-200 hidden lg:block pt-12">
       <div className="flex flex-col items-center justify-center h-full">
         <SidebarLink text="Add Activity" link="addactivity" />
         <SidebarLink text="Add Project" link="addproject" />
-        {!googleUser.loggedin && (
+        <SidebarLink text="Statistics" link="" />
+        {!googleUser.loggedin ? (
           <GoogleLogin
             clientId=""
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             isSignedIn={true}
+            scope="email profile https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.sleep.read https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.blood_pressure.read openid"
           />
+        ) : (
+          <SidebarLink text="Google Fit Stats" link="googlefit" />
         )}
       </div>
     </div>

@@ -4,6 +4,8 @@ import AddActivity from "./AddActivity";
 import AddProject from "./AddProject";
 import Activities from "./Activities";
 import Projects from "./Projects";
+import Statistics from "./Statistics";
+import FitDashboard from "./FitDashboard";
 import { useDispatch } from "react-redux";
 import { initProjects } from "../reducers/projectReducer";
 import { initActivities } from "../reducers/activityReducer";
@@ -29,8 +31,11 @@ const Content = () => {
         <Route path="/addproject">
           <AddProject />
         </Route>
+        <Route path="/googlefit">
+          <FitDashboard />
+        </Route>
         <Route path="/">
-          <div>main</div>
+          <Statistics />
         </Route>
       </Switch>
     </div>
