@@ -11,9 +11,14 @@ const addActivity = async (activity_obj) => {
   const config = {
     headers: { Authorization: token },
   };
-  const response = await axios.post(BASE_URL, activity_obj, config);
-  console.log(response);
-  return response.data;
+  console.log("services received: ", activity_obj);
+  try {
+    const response = await axios.post(BASE_URL, activity_obj, config);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    console.log("insided services err");
+  }
 };
 
 const getActivity = async () => {

@@ -13,7 +13,7 @@ const Activities = () => {
       return seconddate - firstdate;
     })
   );
-
+  console.log(Activities);
   const match = useRouteMatch("/activities/:id");
   const id = match ? match.params.id : null;
   const matchedactivity = Activities.find((activity) => activity.id === id);
@@ -31,7 +31,9 @@ const Activities = () => {
           {Activities.map((activity) => {
             return (
               <div key={activity.id}>
-                {new Date(activity.date.substr(0, 10)).toDateString()}{" "}
+                {new Date(
+                  new Date(activity.date).toLocaleDateString()
+                ).toDateString()}
                 <button
                   className="bg-red-300 mx-2 py-2 px-4 font-bold rounded-md"
                   onClick={() => activityDelete(activity.id)}

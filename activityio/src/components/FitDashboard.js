@@ -7,8 +7,6 @@ const FitDashboard = () => {
   const history = useHistory();
   const googleUser = useSelector((state) => state.googleUser);
   useEffect(() => {
-    console.log("uef ran ");
-    console.log(googleUser);
     if (!googleUser.loggedin) history.push("/");
   }, [googleUser]);
   const dispatch = useDispatch();

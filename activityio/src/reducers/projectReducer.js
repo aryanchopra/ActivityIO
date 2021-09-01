@@ -2,11 +2,15 @@ import projectService from "../services/project";
 
 export const initProjects = () => {
   return async (dispatch) => {
-    const projects = await projectService.getProjects();
-    dispatch({
-      type: "INIT_PROJECTS",
-      data: projects,
-    });
+    try {
+      const projects = await projectService.getProjects();
+      dispatch({
+        type: "INIT_PROJECTS",
+        data: projects,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 

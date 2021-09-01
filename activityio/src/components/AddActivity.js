@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { newActivity } from "../reducers/activityReducer";
-
+import { toast } from "react-toastify";
 const ActivityForm = ({ projectnames }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const activityForm = useFormik({
     // enableReinitialize: true,
     initialValues: {
@@ -23,7 +24,28 @@ const ActivityForm = ({ projectnames }) => {
       projecthours: 0,
     },
     onSubmit: async (values) => {
-      dispatch(newActivity(values));
+      const formValues = { ...values, date: values.date.toDateString() };
+
+      dispatch(newActivity(formValues))
+        .then((res) => {
+          history.push("");
+          toast.success("Added activity", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+          });
+        })
+        .catch((err) =>
+          toast.error("Error!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+          })
+        );
     },
     validate: (values) => {
       let errors = {};
@@ -196,12 +218,6 @@ const ActivityForm = ({ projectnames }) => {
 };
 
 const AddActivity = () => {
-  useEffect(() => {
-    console.log("Add activity mounted");
-    return () => {
-      console.log("Add activity unmounted");
-    };
-  }, []);
   const projectnames = useSelector((state) =>
     state.projects.map((project) => {
       return {

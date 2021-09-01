@@ -2,23 +2,30 @@ import activityService from "../services/activity";
 
 export const initActivities = () => {
   return async (dispatch) => {
-    const activities = await activityService.getActivity();
-    console.log(activities);
-    dispatch({
-      type: "INIT_ACTIVITIES",
-      data: activities,
-    });
+    try {
+      const activities = await activityService.getActivity();
+      console.log(activities);
+      dispatch({
+        type: "INIT_ACTIVITIES",
+        data: activities,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
 export const newActivity = (Activity) => {
   return async (dispatch) => {
+    // try {
     const returnedActivity = await activityService.addActivity(Activity);
-
-    dispatch({
-      type: "NEW_ACTIVITY",
-      data: returnedActivity,
-    });
+    console.log("inside try block", returnedActivity);
+    if (returnedActivity) {
+      dispatch({
+        type: "NEW_ACTIVITY",
+        data: returnedActivity,
+      });
+    } else throw new Error(500);
   };
 };
 

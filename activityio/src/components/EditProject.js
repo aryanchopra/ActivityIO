@@ -95,7 +95,6 @@ const ProjectForm = ({ project }) => {
 const EditProject = ({ project }) => {
   const history = useHistory();
 
-  console.log(project);
   if (!project) history.push("");
   else
     return (

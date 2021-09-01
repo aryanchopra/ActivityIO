@@ -1,34 +1,31 @@
 import authService from "../services/auth";
 import activityService from "../services/activity";
 import projectService from "../services/project";
+import { toast } from "react-toastify";
 export const loginUser = (credentials) => {
   return async (dispatch) => {
-    try {
-      const user = await authService.login(credentials);
-      dispatch(setUser(user));
-      activityService.setToken(user.token);
-      projectService.setToken(user.token);
-      console.log(`setting tokens inside userreducer`);
-      window.localStorage.setItem("loggedinUser", JSON.stringify(user));
-      // dispatch({
-      //   type: "SETUSER",
-      //   data: user,
-      // });
+    // try {
+    const user = await authService.login(credentials);
+    dispatch(setUser(user));
+    activityService.setToken(user.token);
+    projectService.setToken(user.token);
+    console.log(`setting tokens inside userreducer`);
+    window.localStorage.setItem("loggedinUser", JSON.stringify(user));
 
-      // window.localStorage.setItem("loggedinUser", JSON.stringify(user));
-    } catch (exception) {
-      // dispatch({
-      //   type: "NEW_NOTIFICATION",
-      //   message: exception.response.data.error,
-      // });
-      // setTimeout(() => {
-      //   dispatch({
-      //     type: "NEW_NOTIFICATION",
-      //     message: "",
-      //   });
-      // }, 5000);
-      console.log("inside reducer", exception.response.status);
-    }
+    // window.localStorage.setItem("loggedinUser", JSON.stringify(user));
+    // } catch (exception) {
+    //   // dispatch({
+    //   //   type: "NEW_NOTIFICATION",
+    //   //   message: exception.response.data.error,
+    //   // });
+    //   // setTimeout(() => {
+    //   //   dispatch({
+    //   //     type: "NEW_NOTIFICATION",
+    //   //     message: "",
+    //   //   });
+    //   // }, 5000);
+    //   console.log("inside reducer", exception.response.status);
+    // }
   };
 };
 

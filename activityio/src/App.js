@@ -19,7 +19,11 @@ function App() {
   else {
     activityService.setToken(user.token);
     projectService.setToken(user.token);
-    return <Dashboard user={user} />;
+    return (
+      <>
+        <Dashboard user={user} />
+      </>
+    );
   }
 }
 

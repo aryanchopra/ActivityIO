@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import validator from "validator";
 import { loginUser } from "../reducers/userReducer";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
   const loginForm = useFormik({
@@ -15,7 +16,25 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-      dispatch(loginUser(credentials));
+      dispatch(loginUser(credentials))
+        .then((res) => {
+          toast.success("Logged in!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+          });
+        })
+        .catch((err) => {
+          toast.error("Invalid username or password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            progress: undefined,
+          });
+        });
     },
     validate: (values) => {
       let errors = {};

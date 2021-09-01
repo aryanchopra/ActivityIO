@@ -14,7 +14,7 @@ const SleepQsleep = ({ data }) => {
         borderWidth: 3,
         borderRadius: 3,
         borderColor: "Pink",
-        backgroundColor: "Green",
+        backgroundColor: "rgba()",
         tension: 0.2,
       },
       {

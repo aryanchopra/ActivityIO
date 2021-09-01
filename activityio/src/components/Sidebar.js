@@ -17,6 +17,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const googleUser = useSelector((state) => state.googleUser);
   useEffect(() => {
+    console.log(process);
     if (googleUser.loggedin) {
       const config = {
         headers: {
@@ -46,8 +47,6 @@ const Sidebar = () => {
     }
   }, [googleUser]);
   const responseGoogle = (response) => {
-    console.log("inside response google");
-    console.log(response);
     if (response.tokenObj) {
       dispatch(
         loginGoogleUser({
@@ -66,7 +65,7 @@ const Sidebar = () => {
         <SidebarLink text="Statistics" link="" />
         {!googleUser.loggedin ? (
           <GoogleLogin
-            clientId=""
+            clientId={process.env.REACT_APP_GOOGLECLIENTID}
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
