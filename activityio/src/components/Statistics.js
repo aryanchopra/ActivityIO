@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
-import { Line } from "react-chartjs-2";
+import { Line, Chart } from "react-chartjs-2";
 import GridChartItem from "./GridChartItem";
 import SleepQsleep from "./Charts/SleepQsleep";
+import ProductivityQDay from "./Charts/ProductivityQDay";
 import { useState } from "react";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 const Statistics = () => {
   const [filter, setFilter] = useState(7);
   const data = useSelector(
@@ -24,6 +26,7 @@ const Statistics = () => {
         })
     //   The filter ensures the activities returned by the useSelector are within the filter range selected
   );
+  Chart.register(ChartDataLabels);
   if (data.length === 0) {
     return <h2>No activities logged yet</h2>;
   } else {
@@ -51,9 +54,9 @@ const Statistics = () => {
           <GridChartItem>
             <SleepQsleep data={data} />
           </GridChartItem>
-          <div className="min-w-0">
-            <div className="w-full h-full"></div>
-          </div>
+          <GridChartItem>
+            <ProductivityQDay data={data} />
+          </GridChartItem>
           <div className="min-w-0">
             <div className="w-full h-full"></div>
           </div>

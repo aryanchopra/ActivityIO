@@ -7,6 +7,9 @@ module.exports = {
         dashboardlayout: "3rem 1fr",
       },
     },
+    fontFamily: {
+      montserrat: ["Montserrat"],
+    },
   },
   variants: {
     extend: {},
