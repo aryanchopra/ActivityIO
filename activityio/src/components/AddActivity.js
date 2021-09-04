@@ -50,7 +50,7 @@ const ActivityForm = ({ projectnames }) => {
     validate: (values) => {
       let errors = {};
 
-      if (activityForm.values.project === "yes" && values.projectid === "none")
+      if (values.project === "yes" && values.projectid === "none")
         errors.project = "Required";
 
       return errors;

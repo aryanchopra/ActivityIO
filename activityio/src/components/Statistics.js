@@ -7,7 +7,7 @@ import { useState } from "react";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 const Statistics = () => {
   const [filter, setFilter] = useState(7);
-  const data = useSelector(
+  const activitydata = useSelector(
     (state) =>
       state.activities
         .sort((a, b) => {
@@ -26,8 +26,9 @@ const Statistics = () => {
         })
     //   The filter ensures the activities returned by the useSelector are within the filter range selected
   );
+  const projectdata = useSelector((state) => console.log(state.projects));
   Chart.register(ChartDataLabels);
-  if (data.length === 0) {
+  if (activitydata.length === 0) {
     return <h2>No activities logged yet</h2>;
   } else {
     return (
@@ -52,10 +53,10 @@ const Statistics = () => {
 
         <div className="border-blue-800 h-screen lg:h-4/5 grid grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 border-8 ">
           <GridChartItem>
-            <SleepQsleep data={data} />
+            <SleepQsleep data={activitydata} />
           </GridChartItem>
           <GridChartItem>
-            <ProductivityQDay data={data} />
+            <ProductivityQDay data={activitydata} />
           </GridChartItem>
           <div className="min-w-0">
             <div className="w-full h-full"></div>

@@ -34,6 +34,7 @@ const deleteProject = async (id) => {
   try {
     await axios.delete(BASE_URL + `/${id}`, config);
   } catch (err) {
+    console.log("Inside services catch");
     console.log(err);
   }
 };

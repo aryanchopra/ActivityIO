@@ -26,7 +26,6 @@ const ProductivityQDay = ({ data }) => {
           labels: {
             title: {
               formatter: function (value, context) {
-                console.log(context);
                 return data[context.dataIndex].meditate
                   ? context.chart.data.labels.length < 10
                     ? "Meditated"
@@ -74,9 +73,7 @@ const ProductivityQDay = ({ data }) => {
       options={{
         maintainAspectRatio: false,
         responsive: true,
-        onClick: function (e) {
-          console.log(e);
-        },
+        onClick: function (e) {},
         plugins: {
           scales: {
             y: {
@@ -93,7 +90,6 @@ const ProductivityQDay = ({ data }) => {
           legend: {
             labels: {
               filter: function (item, chart) {
-                console.log(item);
                 return !item.text.includes("ID");
               },
             },

@@ -24,13 +24,17 @@ const ActivityForm = ({ projectnames, activity }) => {
       projecthours: activity.project ? activity.project.hours : 0,
     },
     onSubmit: async (values) => {
+      console.log("submitted");
+      console.log(values);
       dispatch(updateActivity({ id: activity.id, ...values }));
       history.push("/activities");
     },
     validate: (values) => {
-      let errors = {};
-
-      if (activityForm.values.project === "yes" && values.projectid === "none")
+      const errors = {};
+      if (
+        values.project === "yes" &&
+        (values.projectid === "none" || values.projectid === 0)
+      )
         errors.project = "Required";
 
       return errors;
@@ -38,6 +42,7 @@ const ActivityForm = ({ projectnames, activity }) => {
   });
   return (
     <div>
+      <span>{activityForm.errors.project}</span>
       <form
         className="flex flex-col items-start"
         action=""
