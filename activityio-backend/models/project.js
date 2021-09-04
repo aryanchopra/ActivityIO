@@ -8,6 +8,13 @@ const projectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  activities: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Activity",
+    },
+  ],
+  hours: { type: Number, default: 0 },
 });
 
 projectSchema.set("toJSON", {

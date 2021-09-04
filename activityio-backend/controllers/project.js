@@ -1,5 +1,6 @@
 const projectRouter = require("express").Router();
 const Project = require("../models/project");
+const Activity = require("../models/activity");
 const { userExtractor } = require("../utils/middleware");
 require("express-async-errors");
 
@@ -72,9 +73,17 @@ projectRouter.delete("/:id", userExtractor, async (request, response) => {
   if (!foundProject) {
     response.status(404);
   }
-  console.log(foundProject);
-  console.log(request.user);
   if (foundProject.user.toString() === request.user.id) {
+    console.log("user matched with project");
+    foundProject.activities.map(async (activityid) => {
+      const foundActivity = await Activity.findById(activityid);
+      foundActivity.project = null;
+      foundActivity.save();
+    });
+    // const activities = await Activity.find({
+    //   "project.id": request.params.id,
+    // });
+    // console.log(activities);
     await Project.findByIdAndRemove(id);
     response.status(204).end();
   } else {
