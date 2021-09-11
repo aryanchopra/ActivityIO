@@ -1,5 +1,5 @@
 import activityService from "../services/activity";
-
+import { initProjects } from "./projectReducer";
 export const initActivities = () => {
   return async (dispatch) => {
     try {
@@ -25,6 +25,7 @@ export const newActivity = (Activity) => {
         type: "NEW_ACTIVITY",
         data: returnedActivity,
       });
+      dispatch(initProjects());
     } else throw new Error(500);
   };
 };
@@ -39,6 +40,7 @@ export const updateActivity = (updated_activity) => {
       type: "UPDATE_ACTIVITY",
       data: updatedActivity,
     });
+    dispatch(initProjects());
   };
 };
 
@@ -49,6 +51,7 @@ export const deleteActivity = (id) => {
       type: "DELETE_ACTIVITY",
       data: id,
     });
+    dispatch(initProjects());
   };
 };
 

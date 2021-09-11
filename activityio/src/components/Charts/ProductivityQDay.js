@@ -1,7 +1,9 @@
 import { Line } from "react-chartjs-2";
-
+import { Infusion6 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office";
 const ProductivityQDay = ({ data }) => {
+  console.log(Infusion6);
   console.log("chartdata", data);
+  console.log();
   const chartData = {
     labels: data.map((activity) =>
       new Date(activity.date).toDateString().slice(0, -5)
@@ -17,9 +19,9 @@ const ProductivityQDay = ({ data }) => {
         yAxisID: "y",
         borderWidth: 1,
         borderRadius: 6,
-        borderColor: ["Red"],
+        borderColor: Infusion6[3],
         backgroundColor: data.map((activity) =>
-          activity.meditate ? "Cyan" : "Red"
+          activity.meditate ? "Cyan" : "LightPink"
         ),
         tension: 0.2,
         datalabels: {
@@ -47,8 +49,8 @@ const ProductivityQDay = ({ data }) => {
         yAxisID: "y",
         borderWidth: 3,
         borderRadius: 3,
-        borderColor: "Pink",
-        backgroundColor: "rgba()",
+        borderColor: "DarkGreen",
+        backgroundColor: Infusion6[1],
         tension: 0.2,
       },
       {
@@ -58,8 +60,8 @@ const ProductivityQDay = ({ data }) => {
         yAxisID: "y",
         borderWidth: 3,
         borderRadius: 3,
-        borderColor: "Pink",
-        backgroundColor: "rgba()",
+        borderColor: Infusion6[3],
+        backgroundColor: Infusion6[2],
         tension: 0.2,
         onClick: (e) => {
           console.log(e);
@@ -74,7 +76,11 @@ const ProductivityQDay = ({ data }) => {
         maintainAspectRatio: false,
         responsive: true,
         onClick: function (e) {},
+
         plugins: {
+          colorschemes: {
+            scheme: "Infusion6",
+          },
           scales: {
             y: {
               beginAtZero: true,

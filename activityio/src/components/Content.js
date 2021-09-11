@@ -17,7 +17,7 @@ const Content = () => {
     dispatch(initActivities());
   }, []);
   return (
-    <div className="col-span-12 lg:col-span-10 bg-gray-100 overflow-scroll">
+    <div className="col-span-12 lg:col-span-10 bg-gray-100 overflow-y-scroll">
       <Switch>
         <Route path="/addactivity">
           <AddActivity />

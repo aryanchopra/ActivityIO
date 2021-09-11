@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
+import { YlGnBu7 as theme } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
 
 const SleepQsleep = ({ data }) => {
   const chartData = {
@@ -13,10 +14,8 @@ const SleepQsleep = ({ data }) => {
         yAxisID: "y",
         borderWidth: 3,
         borderRadius: 3,
-        borderColor: "Yellow",
-        backgroundColor: function (context) {
-          return "Red";
-        },
+        borderColor: theme[0],
+        backgroundColor: "Yellow",
         tension: 0.2,
         datalabels: {
           labels: {
@@ -31,8 +30,8 @@ const SleepQsleep = ({ data }) => {
         yAxisID: "y",
         borderWidth: 3,
         borderRadius: 3,
-        borderColor: "Pink",
-        backgroundColor: "rgba()",
+        borderColor: theme[2],
+        backgroundColor: "Turquoise",
         tension: 0.2,
       },
     ],

@@ -3,6 +3,8 @@ import { Line, Chart } from "react-chartjs-2";
 import GridChartItem from "./GridChartItem";
 import SleepQsleep from "./Charts/SleepQsleep";
 import ProductivityQDay from "./Charts/ProductivityQDay";
+import Projectpie from "./Charts/Projectpie";
+import StatCard from "./Charts/StatCard";
 import { useState } from "react";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 const Statistics = () => {
@@ -26,14 +28,16 @@ const Statistics = () => {
         })
     //   The filter ensures the activities returned by the useSelector are within the filter range selected
   );
-  const projectdata = useSelector((state) => console.log(state.projects));
+  const projectdata = useSelector((state) => state.projects);
+  console.log("activitydata :", activitydata);
+  console.log("projectdata :", projectdata);
   Chart.register(ChartDataLabels);
-  if (activitydata.length === 0) {
+  if (activitydata.length === 0 || !activitydata || !projectdata) {
     return <h2>No activities logged yet</h2>;
   } else {
     return (
       <>
-        <div className="lg:h-1/5">
+        <div className="lg:h-1/6">
           <input
             type="radio"
             name="filter"
@@ -51,19 +55,30 @@ const Statistics = () => {
           <label htmlFor="month">Month</label>
         </div>
 
-        <div className="border-blue-800 h-screen lg:h-4/5 grid grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 border-8 ">
+        <div className="h-screen lg:h-5/6 grid grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-2 p-4">
           <GridChartItem>
             <SleepQsleep data={activitydata} />
           </GridChartItem>
           <GridChartItem>
             <ProductivityQDay data={activitydata} />
           </GridChartItem>
-          <div className="min-w-0">
-            <div className="w-full h-full"></div>
-          </div>
-          <div className="min-w-0">
-            <div className="w-full h-full"></div>
-          </div>
+          {projectdata.length > 0 && (
+            <GridChartItem>
+              <Projectpie data={projectdata} />
+            </GridChartItem>
+          )}
+          <GridChartItem classes="grid grid-rows-2 grid-cols-2 gap-5">
+            <StatCard></StatCard>
+            <StatCard>
+              <div>hi</div>
+            </StatCard>
+            <StatCard>
+              <div>hi</div>
+            </StatCard>
+            <StatCard>
+              <div>hi</div>
+            </StatCard>
+          </GridChartItem>
         </div>
       </>
     );

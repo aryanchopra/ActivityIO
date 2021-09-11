@@ -3401,10 +3401,15 @@
   "resolved" "https://registry.npmjs.org/char-regex/-/char-regex-1.0.2.tgz"
   "version" "1.0.2"
 
-"chart.js@^3.0.0", "chart.js@^3.1.0", "chart.js@^3.5.1":
-  "integrity" "sha512-m5kzt72I1WQ9LILwQC4syla/LD/N413RYv2Dx2nnTkRS9iv/ey1xLTt0DnPc/eWV4zI+BgEgDYBIzbQhZHc/PQ=="
-  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.5.1.tgz"
-  "version" "3.5.1"
+"chart.js@^3.0.0", "chart.js@^3.1.0", "chart.js@>= 2.5.0 < 3":
+  "integrity" "sha512-bKJi2VbC4fqZXlLbK7LKVvmG9crjoG9anfp96utZLyIGPuCx+YN+5/HDXy98QGt3lf74T8gKUPISUZL222tDJQ=="
+  "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.1.0.tgz"
+  "version" "3.1.0"
+
+"chartjs-plugin-colorschemes@^0.4.0":
+  "integrity" "sha512-GUAulGFa6igdhi/xF9XopLJknwtXZT0wwEB+e/D4SJcRGY1HdwzX84pVn5BSpnk1idF6RJxZoA7w396R7BOE9A=="
+  "resolved" "https://registry.npmjs.org/chartjs-plugin-colorschemes/-/chartjs-plugin-colorschemes-0.4.0.tgz"
+  "version" "0.4.0"
 
 "chartjs-plugin-datalabels@^2.0.0":
   "integrity" "sha512-WBsWihphzM0Y8fmQVm89+iy99mmgejmj5/jcsYqwxSioLRL/zqJ4Scv/eXq5ZqvG3TpojlGzZLeaOaSvDm7fwA=="
