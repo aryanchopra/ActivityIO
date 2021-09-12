@@ -28,14 +28,16 @@ const Sidebar = () => {
       const body = {
         aggregateBy: [
           {
-            dataTypeName: "com.google.calories.expended",
+            dataTypeName: "com.google.step_count.delta",
+            // dataSourceId:
+            //   "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps",
           },
         ],
         bucketByTime: {
           durationMillis: 86400000,
         },
         endTimeMillis: new Date().getTime(),
-        startTimeMillis: new Date().getTime() - 7 * 86400000,
+        startTimeMillis: new Date().getTime() - 30 * 86400000,
       };
       axios
         .post(

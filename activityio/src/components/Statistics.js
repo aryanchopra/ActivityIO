@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { Line, Chart } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 import GridChartItem from "./GridChartItem";
 import SleepQsleep from "./Charts/SleepQsleep";
 import ProductivityQDay from "./Charts/ProductivityQDay";
 import Projectpie from "./Charts/Projectpie";
-import StatCard from "./Charts/StatCard";
+import Stats from "./Charts/Stats";
 import { useState } from "react";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 const Statistics = () => {
-  const [filter, setFilter] = useState(7);
+  const [filter, setFilter] = useState(30);
   const activitydata = useSelector(
     (state) =>
       state.activities
@@ -29,10 +29,9 @@ const Statistics = () => {
     //   The filter ensures the activities returned by the useSelector are within the filter range selected
   );
   const projectdata = useSelector((state) => state.projects);
-  console.log("activitydata :", activitydata);
-  console.log("projectdata :", projectdata);
   Chart.register(ChartDataLabels);
   if (activitydata.length === 0 || !activitydata || !projectdata) {
+    console.log(activitydata, projectdata);
     return <h2>No activities logged yet</h2>;
   } else {
     return (
@@ -51,6 +50,7 @@ const Statistics = () => {
             id="month"
             name="filter"
             onChange={() => setFilter(30)}
+            checked={filter === 30 ? true : false}
           />
           <label htmlFor="month">Month</label>
         </div>
@@ -68,16 +68,7 @@ const Statistics = () => {
             </GridChartItem>
           )}
           <GridChartItem classes="grid grid-rows-2 grid-cols-2 gap-5">
-            <StatCard></StatCard>
-            <StatCard>
-              <div>hi</div>
-            </StatCard>
-            <StatCard>
-              <div>hi</div>
-            </StatCard>
-            <StatCard>
-              <div>hi</div>
-            </StatCard>
+            <Stats data={{ activitydata, projectdata, filter }} />
           </GridChartItem>
         </div>
       </>

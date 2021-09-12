@@ -35,7 +35,7 @@ const Navbar = () => {
   const [DropdownOpen, setDropdownOpen] = useState(false);
   const dropdownref = useRef();
   return (
-    <div className="w-full relative min-h-full bg-yellow-200 col-start-1 col-span-12 row-start-1 row-span-1 shadow-md">
+    <div className="w-full relative min-h-full bg-purple-300 col-start-1 col-span-12 row-start-1 row-span-1 shadow-md">
       <div className="flex h-full items-center justify-end w-full">
         <span className="">Activity IO</span>
 
