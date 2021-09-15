@@ -1,9 +1,6 @@
 import { Line } from "react-chartjs-2";
 import { Infusion6 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office";
 const ProductivityQDay = ({ data }) => {
-  console.log(Infusion6);
-  console.log("chartdata", data);
-  console.log();
   const chartData = {
     labels: data.map((activity) =>
       new Date(activity.date).toDateString().slice(0, -5)

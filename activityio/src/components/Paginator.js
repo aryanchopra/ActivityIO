@@ -8,7 +8,6 @@ const Paginator = ({
   for (let i = 0; i < Math.ceil(totalactivities / activitiesperpage); i++) {
     totalpages.push(i + 1);
   }
-  console.log(totalactivities);
   return (
     <div className="mt-3">
       {totalpages.length > 1 &&

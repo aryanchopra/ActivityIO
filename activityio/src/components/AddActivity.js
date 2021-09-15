@@ -9,6 +9,12 @@ import { toast } from "react-toastify";
 const ActivityForm = ({ projectnames }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const activitydates = useSelector((state) =>
+    state.activities.map((activity) => new Date(activity.date))
+  );
+  const futureDate = (date) => {
+    return new Date() > date;
+  };
   const activityForm = useFormik({
     // enableReinitialize: true,
     initialValues: {
@@ -57,14 +63,16 @@ const ActivityForm = ({ projectnames }) => {
     },
   });
   return (
-    <div>
-      <form
-        className="flex flex-col items-start"
-        action=""
-        onSubmit={activityForm.handleSubmit}
-      >
-        <label htmlFor="date">Date</label>
+    <form
+      className="inline-flex flex-col items-start p-1"
+      action=""
+      onSubmit={activityForm.handleSubmit}
+    >
+      <label htmlFor="date" className="mt-1">
+        Date
+      </label>
 
+      <div className="w-full mt-1">
         <DatePicker
           selected={activityForm.values.date}
           name="date"
@@ -72,148 +80,180 @@ const ActivityForm = ({ projectnames }) => {
             activityForm.setFieldValue("date", selecteddate);
           }}
           dateFormat="dd/MM/yyyy"
+          showPopperArrow={false}
+          excludeDates={activitydates}
+          filterDate={futureDate}
+          placeholderText="Activity Date"
+          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
           required
         />
-        <label htmlFor="sleep">Sleep</label>
+      </div>
+      <label htmlFor="sleep" className="mt-1">
+        Sleep
+      </label>
+      <input
+        type="number"
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        min="0"
+        max="24"
+        name="sleep"
+        onChange={activityForm.handleChange}
+        value={activityForm.values.sleep}
+        required
+      />
+      <label htmlFor="qualityofsleep" className="mt-1">
+        Quality of Sleep
+      </label>
+      <input
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        type="number"
+        min="1"
+        max="10"
+        name="qualityofsleep"
+        onChange={activityForm.handleChange}
+        value={activityForm.values.qualityofsleep}
+        required
+      />
+      <label className="mt-1" htmlFor="workout">
+        Hours of Workout?
+      </label>
+      <input
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        type="number"
+        min="0"
+        max="6"
+        name="workout"
+        onChange={activityForm.handleChange}
+        value={activityForm.values.workout}
+        required
+      />
+      <div className="inline mt-1">
+        <span className=" mr-4">Did you meditate?</span>
+        <label htmlFor="html" className="mr-1">
+          No
+        </label>
         <input
-          type="number"
-          min="0"
-          max="24"
-          name="sleep"
+          type="radio"
+          id="meditatefalse"
+          name="meditate"
+          value="no"
           onChange={activityForm.handleChange}
-          value={activityForm.values.sleep}
-          required
+          checked={activityForm.values.meditate === "no"}
         />
-        <label htmlFor="qualityofsleep">Quality of Sleep</label>
+
+        <label htmlFor="css" className="mr-1 ml-2">
+          Yes
+        </label>
         <input
-          type="number"
-          min="1"
-          max="10"
-          name="qualityofsleep"
+          type="radio"
+          id="meditatetrue"
+          name="meditate"
+          value="yes"
           onChange={activityForm.handleChange}
-          value={activityForm.values.qualityofsleep}
-          required
+          checked={activityForm.values.meditate === "yes"}
         />
-        <label htmlFor="workout">Hours of Workout?</label>
+      </div>
+      <label htmlFor="qualityofday" className="mt-1">
+        Quality of Day
+      </label>
+
+      <input
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        type="number"
+        min="1"
+        max="10"
+        name="qualityofday"
+        onChange={activityForm.handleChange}
+        value={activityForm.values.qualityofday}
+        required
+      />
+      <div className="inline mt-1">
+        <span className=" mr-4">Did you work on a project?</span>
+        <label htmlFor="html" className="mr-1">
+          No
+        </label>
         <input
-          type="number"
-          min="0"
-          max="6"
-          name="workout"
+          type="radio"
+          id="projectfalse"
+          name="project"
+          value="no"
           onChange={activityForm.handleChange}
-          value={activityForm.values.workout}
-          required
+          checked={activityForm.values.project === "no"}
         />
-        <div className="inline">
-          <span className="font-bold mr-4">Did you meditate?</span>
-          <label htmlFor="html">No</label>
-          <input
-            type="radio"
-            id="meditatefalse"
-            name="meditate"
-            value="no"
-            onChange={activityForm.handleChange}
-            checked={activityForm.values.meditate === "no"}
-          />
 
-          <label htmlFor="css">Yes</label>
-          <input
-            type="radio"
-            id="meditatetrue"
-            name="meditate"
-            value="yes"
-            onChange={activityForm.handleChange}
-            checked={activityForm.values.meditate === "yes"}
-          />
-        </div>
-        <label htmlFor="qualityofday">Quality of Day</label>
-
+        <label htmlFor="css" className="mr-1 ml-2">
+          Yes
+        </label>
         <input
-          type="number"
-          min="1"
-          max="10"
-          name="qualityofday"
+          type="radio"
+          id="projecttrue"
+          name="project"
+          value="yes"
           onChange={activityForm.handleChange}
-          value={activityForm.values.qualityofday}
-          required
+          checked={activityForm.values.project === "yes"}
+          disabled={projectnames.length === 0}
         />
-        <div className="inline">
-          <span className="font-bold mr-4">Did you work on a project</span>
-          <label htmlFor="html">No</label>
-          <input
-            type="radio"
-            id="projectfalse"
-            name="project"
-            value="no"
-            onChange={activityForm.handleChange}
-            checked={activityForm.values.project === "no"}
-          />
+        {activityForm.values.project === "yes" && (
+          <div className="block mt-1">
+            <select
+              name="projectid"
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 "
+              onChange={activityForm.handleChange}
+              id="project"
+              value={activityForm.values.projectid}
+            >
+              <option value="none">Select a project</option>
+              {projectnames.map((project, idx) => {
+                return (
+                  <option key={idx} value={project.id}>
+                    {project.name}
+                  </option>
+                );
+              })}
+            </select>
+            <label htmlFor="html" className="mr-2 ml-3">
+              Hours
+            </label>
+            <input
+              type="number"
+              className=""
+              min="0"
+              max="24"
+              name="projecthours"
+              value={activityForm.values.projecthours}
+              onChange={activityForm.handleChange}
+            />
+          </div>
+        )}
+      </div>
 
-          <label htmlFor="css">Yes</label>
-          <input
-            type="radio"
-            id="projecttrue"
-            name="project"
-            value="yes"
-            onChange={activityForm.handleChange}
-            checked={activityForm.values.project === "yes"}
-            disabled={projectnames.length === 0}
-          />
-          {activityForm.values.project === "yes" && (
-            <div className="block">
-              <select
-                name="projectid"
-                onChange={activityForm.handleChange}
-                id="project"
-                value={activityForm.values.projectid}
-              >
-                <option value="none">Select a project</option>
-                {projectnames.map((project, idx) => {
-                  return (
-                    <option key={idx} value={project.id}>
-                      {project.name}
-                    </option>
-                  );
-                })}
-              </select>
-              <input
-                type="number"
-                className="ml-3"
-                min="0"
-                max="24"
-                name="projecthours"
-                value={activityForm.values.projecthours}
-                onChange={activityForm.handleChange}
-              />
-            </div>
-          )}
-        </div>
+      <label className="mt-1" htmlFor="productivehours">
+        Productive Hours
+      </label>
 
-        <label htmlFor="productivehours">Productive Hours</label>
+      <input
+        type="number"
+        min="0"
+        max="24"
+        name="productivehours"
+        className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        onChange={activityForm.handleChange}
+        value={activityForm.values.productivehours}
+        required
+      />
 
-        <input
-          type="number"
-          min="0"
-          max="24"
-          name="productivehours"
-          onChange={activityForm.handleChange}
-          value={activityForm.values.productivehours}
-          required
-        />
-
-        <button
-          className={
-            activityForm.errors.project
-              ? "font-bold bg-red-400 rounded-md px-4 py-2 "
-              : "font-bold bg-blue-400 rounded-md px-4 py-2"
-          }
-          type="submit"
-          disabled={activityForm.errors.project}
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+      <button
+        className={
+          activityForm.errors.project
+            ? "font-bold bg-red-400 rounded-md px-4 py-2 mt-3"
+            : "font-bold bg-blue-400 rounded-md px-4 py-2 mt-3"
+        }
+        type="submit"
+        disabled={activityForm.errors.project}
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 
@@ -228,19 +268,24 @@ const AddActivity = () => {
   );
 
   return (
-    <div className="font-bold">
-      <div>
+    <>
+      <div className="flex justify-end px-3 pt-3">
         <Link to="/activities">
-          <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
+          <button className="font-bold right-1 bg-blue-200 py-2 px-4 rounded-md">
             Activities
           </button>
         </Link>
       </div>
-      <span className="text-xl text-center font-bold mt-2">
-        Hey Aryan, how was your day?
-      </span>
-      <ActivityForm projectnames={projectnames} />
-    </div>
+
+      <div>
+        <span className="text-xl text-center font-bold mt-1">
+          Hey Aryan, how was your day?
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <ActivityForm projectnames={projectnames} />
+      </div>
+    </>
   );
 };
 
