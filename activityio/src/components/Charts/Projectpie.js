@@ -2,7 +2,6 @@ import { PolarArea } from "react-chartjs-2";
 // import "chartjs-plugin-colorschemes/src/plugins/plugin.colorschemes";
 // import colorschemes from "chartjs-plugin-colorschemes/src/colorschemes/";
 const Projectpie = ({ data }) => {
-  console.log(data);
   const chartData = {
     labels: data.map((project) => project.name),
     datasets: [

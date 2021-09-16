@@ -64,7 +64,7 @@ const ActivityForm = ({ projectnames }) => {
   });
   return (
     <form
-      className="inline-flex flex-col items-start p-1"
+      className="inline-flex flex-col lg:w-1/3 w-1/2 items-start p-1"
       action=""
       onSubmit={activityForm.handleSubmit}
     >
@@ -72,7 +72,7 @@ const ActivityForm = ({ projectnames }) => {
         Date
       </label>
 
-      <div className="w-full mt-1">
+      <div className="w-full mt-1 ">
         <DatePicker
           selected={activityForm.values.date}
           name="date"
@@ -84,7 +84,7 @@ const ActivityForm = ({ projectnames }) => {
           excludeDates={activitydates}
           filterDate={futureDate}
           placeholderText="Activity Date"
-          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl"
           required
         />
       </div>
@@ -93,7 +93,7 @@ const ActivityForm = ({ projectnames }) => {
       </label>
       <input
         type="number"
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
         min="0"
         max="24"
         name="sleep"
@@ -105,7 +105,7 @@ const ActivityForm = ({ projectnames }) => {
         Quality of Sleep
       </label>
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
         type="number"
         min="1"
         max="10"
@@ -118,7 +118,7 @@ const ActivityForm = ({ projectnames }) => {
         Hours of Workout?
       </label>
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
         type="number"
         min="0"
         max="6"
@@ -158,7 +158,7 @@ const ActivityForm = ({ projectnames }) => {
       </label>
 
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
         type="number"
         min="1"
         max="10"
@@ -167,7 +167,7 @@ const ActivityForm = ({ projectnames }) => {
         value={activityForm.values.qualityofday}
         required
       />
-      <div className="inline mt-1">
+      <div className="inline mt-1 w-full">
         <span className=" mr-4">Did you work on a project?</span>
         <label htmlFor="html" className="mr-1">
           No
@@ -194,10 +194,10 @@ const ActivityForm = ({ projectnames }) => {
           disabled={projectnames.length === 0}
         />
         {activityForm.values.project === "yes" && (
-          <div className="block mt-1">
+          <div className="mt-1 w-full lg:flex items-center">
             <select
               name="projectid"
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 "
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded lg:w-1/2 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl"
               onChange={activityForm.handleChange}
               id="project"
               value={activityForm.values.projectid}
@@ -211,12 +211,12 @@ const ActivityForm = ({ projectnames }) => {
                 );
               })}
             </select>
-            <label htmlFor="html" className="mr-2 ml-3">
+            <label htmlFor="html" className="mr-2 ml-3 mt-2 lg:mt-0">
               Hours
             </label>
             <input
               type="number"
-              className=""
+              className="bg-gray-200 mt-2 lg:mt-0 appearance-none border-2 border-gray-200 rounded py-2 px-4  text-gray-700 leading-tight flex-grow focus:outline-none focus:bg-white  shadow focus:shadow-xl focus:border-purple-500 "
               min="0"
               max="24"
               name="projecthours"
@@ -236,23 +236,25 @@ const ActivityForm = ({ projectnames }) => {
         min="0"
         max="24"
         name="productivehours"
-        className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1"
+        className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
         onChange={activityForm.handleChange}
         value={activityForm.values.productivehours}
         required
       />
 
-      <button
-        className={
-          activityForm.errors.project
-            ? "font-bold bg-red-400 rounded-md px-4 py-2 mt-3"
-            : "font-bold bg-blue-400 rounded-md px-4 py-2 mt-3"
-        }
-        type="submit"
-        disabled={activityForm.errors.project}
-      >
-        Submit
-      </button>
+      <div className="flex justify-center w-full">
+        <button
+          className={
+            activityForm.errors.project
+              ? "font-bold bg-red-400 rounded-md px-4 py-2 mt-3 min-w-max"
+              : "font-bold bg-blue-400 rounded-md px-4 py-2 mt-3 min-w-max"
+          }
+          type="submit"
+          disabled={activityForm.errors.project}
+        >
+          Record Activity
+        </button>
+      </div>
     </form>
   );
 };
@@ -272,16 +274,16 @@ const AddActivity = () => {
       <div className="flex justify-end px-3 pt-3">
         <Link to="/activities">
           <button className="font-bold right-1 bg-blue-200 py-2 px-4 rounded-md">
-            Activities
+            All Activities
           </button>
         </Link>
       </div>
 
-      <div>
+      {/* <div>
         <span className="text-xl text-center font-bold mt-1">
           Hey Aryan, how was your day?
         </span>
-      </div>
+      </div> */}
       <div className="flex justify-center">
         <ActivityForm projectnames={projectnames} />
       </div>

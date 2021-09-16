@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteActivity } from "../reducers/activityReducer";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import EditActivity from "./EditActivity";
 import Paginator from "./Paginator";
+import { Edit, Delete } from "@material-ui/icons";
+
 const Activities = () => {
   const dispatch = useDispatch();
   const Activities = useSelector((state) =>
@@ -36,52 +38,78 @@ const Activities = () => {
         {matchedactivity && <EditActivity activity={matchedactivity} />}
       </Route>
       <Route path="">
-        <div>
-          {Activities.length === 0 && <span>No activities available</span>}
-          <table class="border-collapse border-4 rounded-md border-green-800 ...">
-            <thead>
-              <tr>
-                <th class="border ">Date</th>
-                {/* <th class="border ">City</th>
-                <th class="border ">City</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              {shownActivities.map((activity) => {
-                return (
-                  <tr key={activity.id}>
-                    <td>
-                      {new Date(
-                        new Date(activity.date).toLocaleDateString()
-                      ).toDateString()}
-                    </td>
-                    <td>
-                      <button
-                        className="bg-red-300 mx-2 py-2 px-4 font-bold rounded-md"
-                        onClick={() => activityDelete(activity.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                    <td>
-                      <Link to={`activities/${activity.id}`}>
-                        <button className="bg-yellow-300 py-2 px-4 font-bold rounded-md">
-                          Edit
-                        </button>
-                      </Link>
-                    </td>
+        {Activities.length === 0 ? (
+          <span>No activities available</span>
+        ) : (
+          <div className="flex flex-col w-full h-full items-center justify-center">
+            <div className="overflow-auto lg:overflow-visible ">
+              <table
+                className="table text-black text-sm border-separate "
+                style={{ borderSpacing: "0px 2px" }}
+              >
+                <thead className="bg-gray-800 text-gray-500">
+                  <tr className=" border-2" style={{ borderRadius: "20px" }}>
+                    <th className="p-2 rounded-l-md">Date</th>
+                    <th className="p-2 hidden md:table-cell">Sleep</th>
+                    <th className="p-2 hidden md:table-cell">
+                      Quality of Sleep
+                    </th>
+                    <th className="p-2 hidden md:table-cell">Quality Of Day</th>
+                    <th className="p-2 hidden md:table-cell">Meditated</th>
+                    <th className="p-2 hidden md:table-cell">Project</th>
+                    <th className="p-2 rounded-r-md">Action</th>
+                    {/* <th class="border ">City</th>
+              <th class="border ">City</th> */}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <Paginator
-          activitiesperpage={activitiesPerPage}
-          totalactivities={Activities.length}
-          paginate={setCurrentPage}
-          currentpage={currentPage}
-        />
+                </thead>
+                <tbody className="space-y-6 ">
+                  {shownActivities.map((activity) => {
+                    return (
+                      <tr key={activity.id} className="bg-gray-800 text-white">
+                        <td className="p-3 rounded-l-md">
+                          {new Date(
+                            new Date(activity.date).toLocaleDateString()
+                          ).toDateString()}
+                        </td>
+                        <td className="p-3 hidden md:table-cell text-center">
+                          {activity.sleep}
+                        </td>
+                        <td className="p-3 hidden md:table-cell text-center">
+                          {activity.qualityofsleep}
+                        </td>
+                        <td className="p-3 hidden md:table-cell text-center">
+                          {activity.qualityofday}
+                        </td>
+                        <td className="p-3 hidden md:table-cell text-center">
+                          {activity.meditate ? "Yes" : "No"}
+                        </td>
+                        <td className="p-3 hidden md:table-cell text-center">
+                          {activity.project ? "Yes" : "No"}
+                        </td>
+                        <td className="p-2 rounded-r-md">
+                          <Delete
+                            className="cursor-pointer mr-2 hover:text-gray-500"
+                            onClick={() => activityDelete(activity.id)}
+                          />
+
+                          <Link to={`activities/${activity.id}`}>
+                            <Edit className="cursor-pointer mr-2 hover:text-gray-500" />
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <Paginator
+              activitiesperpage={activitiesPerPage}
+              totalactivities={Activities.length}
+              paginate={setCurrentPage}
+              currentpage={currentPage}
+            />
+          </div>
+        )}
       </Route>
     </Switch>
   );
