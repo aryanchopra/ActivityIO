@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
-import axios from "axios";
+import { GoogleLogin } from "react-google-login";
 import { loginGoogleUser } from "../reducers/oauthReducer";
 const SidebarLink = ({ text, link }) => {
   return (
@@ -16,36 +15,6 @@ const SidebarLink = ({ text, link }) => {
 const Sidebar = () => {
   const dispatch = useDispatch();
   const googleUser = useSelector((state) => state.googleUser);
-  useEffect(() => {
-    console.log(process);
-    if (googleUser.loggedin) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${googleUser.token}`,
-          Accept: "application/json",
-        },
-      };
-      const body = {
-        aggregateBy: [
-          {
-            dataTypeName: "com.google.step_count.delta",
-          },
-        ],
-        bucketByTime: {
-          durationMillis: 86400000,
-        },
-        endTimeMillis: new Date().getTime(),
-        startTimeMillis: new Date().getTime() - 30 * 86400000,
-      };
-      axios
-        .post(
-          "https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate",
-          body,
-          config
-        )
-        .then((res) => console.log(res));
-    }
-  }, [googleUser]);
   const responseGoogle = (response) => {
     if (response.tokenObj) {
       dispatch(
