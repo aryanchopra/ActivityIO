@@ -14,6 +14,9 @@ absolutedatetomorrow = absolutedatetomorrow.setDate(
   absolutedatetoday.getDate() + 1
 );
 
+export const fitScopes =
+  "email profile https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.sleep.read https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.blood_pressure.read openid";
+
 const getSteps = async () => {
   const config = {
     headers: {

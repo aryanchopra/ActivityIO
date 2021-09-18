@@ -16,7 +16,7 @@ const DropDown = ({ DropdownOpen, dropdownref }) => {
     <AnimatePresence>
       {DropdownOpen && (
         <motion.div
-          className="absolute right-0 top-12 bg-blue-700 h-24"
+          className="absolute right-0 top-11 bg-blue-700 h-24"
           style={{ width: dropdownref.current.offsetWidth }}
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "6rem", opacity: 1 }}
@@ -35,8 +35,11 @@ const Navbar = () => {
   const [DropdownOpen, setDropdownOpen] = useState(false);
   const dropdownref = useRef();
   return (
-    <div className="w-full relative min-h-full bg-purple-300 col-start-1 col-span-12 row-start-1 row-span-1 shadow-md">
-      <div className="flex h-full items-center justify-end w-full">
+    <div
+      className="w-full relative min-h-full col-start-1 col-span-12 row-start-1 row-span-1"
+      style={{ padding: "2.5px" }}
+    >
+      <div className=" rounded-lg border-2 bg-gray-700 text-gray-300 shadow-md flex h-full items-center justify-end w-full">
         <span className="">Activity IO</span>
 
         <div className="ml-2 flex items-center" ref={dropdownref}>

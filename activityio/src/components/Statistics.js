@@ -3,7 +3,7 @@ import { Chart } from "react-chartjs-2";
 import GridChartItem from "./GridChartItem";
 import SleepQsleep from "./Charts/SleepQsleep";
 import ProductivityQDay from "./Charts/ProductivityQDay";
-import Projectpie from "./Charts/Projectpie";
+import Projectpie from "./Charts/ProjectPie";
 import Stats from "./Charts/Stats";
 import { useState } from "react";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -37,6 +37,7 @@ const Statistics = () => {
     return (
       <>
         <div className="lg:h-1/6">
+          <h1>Your Weekly Stats</h1>
           <input
             type="radio"
             name="filter"
@@ -55,7 +56,7 @@ const Statistics = () => {
           <label htmlFor="month">Month</label>
         </div>
 
-        <div className="h-screen lg:h-5/6 grid grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-2 p-4">
+        <div className="h-screen lg:h-5/6 lg:grid lg:grid-cols-2 lg:grid-rows-2 gap-2 pb-4 pr-4">
           <GridChartItem>
             <SleepQsleep data={activitydata} />
           </GridChartItem>
@@ -67,7 +68,7 @@ const Statistics = () => {
               <Projectpie data={projectdata} />
             </GridChartItem>
           )}
-          <GridChartItem classes="grid grid-rows-2 grid-cols-2 gap-5">
+          <GridChartItem classes="flex flex-col items-center lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-5 lg:m-0 mt-2">
             <Stats data={{ activitydata, projectdata, filter }} />
           </GridChartItem>
         </div>

@@ -1,7 +1,7 @@
 const StatCard = ({ value, caption, unit }) => {
   return (
     <div
-      className="shadow-md rounded-md"
+      className="shadow-md rounded-md h-24 lg:h-full lg:block lg:mt-0 mt-2 w-1/2 lg:w-full"
       style={{
         backgroundColor: "#4158D0",
         backgroundImage:
@@ -14,7 +14,7 @@ const StatCard = ({ value, caption, unit }) => {
           <span className="text-sm ml-1"> {unit}</span>
         </div>
       </div>
-      <div className="h-1/5 flex justify-center items-center overflow-x-hidden text-xs whitespace-pre md:text-base">
+      <div className="h-1/5 flex justify-center items-center overflow-hidden text-xs whitespace-pre md:text-base">
         {caption}
       </div>
     </div>

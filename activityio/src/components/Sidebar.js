@@ -1,17 +1,21 @@
 import React from "react";
+import FitLogo from "./FitLogo";
+import { fitScopes } from "../services/googleFit";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "react-google-login";
 import { loginGoogleUser } from "../reducers/oauthReducer";
+
 const SidebarLink = ({ text, link }) => {
   return (
-    <Link className="min-w-max mb-5" to={`/${link}`}>
-      <button className="bg-blue-400  py-2 px-4 text-white font-bold rounded-md w-full">
+    <Link className="w-1/2 mb-5" to={`/${link}`}>
+      <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
         {text}
       </button>
     </Link>
   );
 };
+
 const Sidebar = () => {
   const dispatch = useDispatch();
   const googleUser = useSelector((state) => state.googleUser);
@@ -29,7 +33,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="col-span-2 col-start-1 row-start-1 row-span-2 bg-blue-200 hidden lg:block pt-12">
+    <div className="col-span-2 col-start-1 row-start-1 row-span-2 bg-white hidden lg:block mt-12">
       <div className="flex flex-col items-center justify-center h-full">
         <SidebarLink text="Activities" link="addactivity" />
         <SidebarLink text="Projects" link="addproject" />
@@ -41,10 +45,25 @@ const Sidebar = () => {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             isSignedIn={true}
-            scope="email profile https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.sleep.read https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.blood_pressure.read openid"
+            render={(renderProps) => (
+              <button
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                className="bg-gray-600 flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-1/2"
+              >
+                <FitLogo />
+                <span className="">Fit Login</span>
+              </button>
+            )}
+            scope={fitScopes}
           />
         ) : (
-          <SidebarLink text="Google Fit Stats" link="googlefit" />
+          <Link className="w-1/2 mb-5" to={`/googlefit`}>
+            <button className="bg-gray-600 flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-full">
+              <FitLogo />
+              <span className="">Fit Stats</span>
+            </button>
+          </Link>
         )}
       </div>
     </div>
