@@ -16,11 +16,13 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const googleUser = useSelector((state) => state.googleUser);
   const responseGoogle = (response) => {
+    console.log(response);
     if (response.tokenObj) {
       dispatch(
         loginGoogleUser({
           loggedin: true,
           token: response.tokenObj.access_token,
+          name: response.Ws.Qe,
         })
       );
     }

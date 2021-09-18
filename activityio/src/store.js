@@ -5,12 +5,14 @@ import userReducer from "./reducers/userReducer";
 import projectReducer from "./reducers/projectReducer";
 import activityReducer from "./reducers/activityReducer";
 import oauthReducer from "./reducers/oauthReducer";
+import googlefitReducer from "./reducers/googlefitReducer";
 
 const reducers = combineReducers({
   user: userReducer,
   projects: projectReducer,
   activities: activityReducer,
   googleUser: oauthReducer,
+  googleFitData: googlefitReducer,
 });
 export const store = createStore(
   reducers,

@@ -67,18 +67,6 @@ const getCalories = async () => {
     endTimeMillis: absolutedatetomorrow,
     startTimeMillis: absolutedatetomorrow - 30 * 86400000,
   };
-  const body2 = {
-    aggregateBy: [
-      {
-        dataTypeName: "com.google.weight",
-      },
-    ],
-    bucketByTime: {
-      durationMillis: 86400000,
-    },
-    endTimeMillis: absolutedatetomorrow,
-    startTimeMillis: absolutedatetomorrow - 30 * 86400000,
-  };
 
   try {
     const res = await axios.post(BASE_URL, body, config);
