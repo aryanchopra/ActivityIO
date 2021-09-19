@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
@@ -9,7 +9,6 @@ import { updateActivity } from "../reducers/activityReducer";
 const ActivityForm = ({ projectnames, activity }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log(new Date(activity.date));
   const activitydates = useSelector((state) =>
     state.activities.map((storedactivity) =>
       new Date(activity.date).getTime() !==
@@ -18,7 +17,6 @@ const ActivityForm = ({ projectnames, activity }) => {
         : null
     )
   );
-  console.log(activitydates);
   const futureDate = (date) => {
     return new Date() > date;
   };
@@ -37,8 +35,6 @@ const ActivityForm = ({ projectnames, activity }) => {
       projecthours: activity.project ? activity.project.hours : 0,
     },
     onSubmit: async (values) => {
-      console.log("submitted");
-      console.log(values);
       dispatch(updateActivity({ id: activity.id, ...values }));
       history.push("/activities");
     },

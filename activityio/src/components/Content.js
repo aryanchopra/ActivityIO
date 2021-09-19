@@ -17,7 +17,7 @@ const Content = () => {
     dispatch(initActivities());
   }, []);
   return (
-    <div className="col-span-12 lg:col-span-10 bg-rose-200 overflow-y-scroll">
+    <div className="col-span-12 lg:col-span-10 bg-rose-200 overflow-y-scroll bg-white dark:bg-black dark:bg-opacity-60">
       <Switch>
         <Route path="/addactivity">
           <AddActivity />
@@ -42,4 +42,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default React.memo(Content);

@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+
+    transition: background-color 0.5s;
+    transition: color 0.5s;
+  }
+}

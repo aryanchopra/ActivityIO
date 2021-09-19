@@ -21,7 +21,7 @@ function App() {
     projectService.setToken(user.token);
     return (
       <>
-        <Dashboard user={user} />
+        <Dashboard />
       </>
     );
   }

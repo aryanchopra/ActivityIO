@@ -1,4 +1,6 @@
+import React from "react";
 import { useSelector } from "react-redux";
+
 import { Chart } from "react-chartjs-2";
 import GridChartItem from "./GridChartItem";
 import SleepQsleep from "./Charts/SleepQsleep";
@@ -8,6 +10,7 @@ import Stats from "./Charts/Stats";
 import { useState } from "react";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 const Statistics = () => {
+  console.log("Stats rendered");
   const [filter, setFilter] = useState(30);
   const activitydata = useSelector(
     (state) =>
@@ -37,8 +40,19 @@ const Statistics = () => {
     return (
       <>
         <div className="lg:h-1/6">
-          <h1>Your Weekly Stats</h1>
-          <input
+          <div className="flex justify-end items-end h-full">
+            <span className="lg:text-6xl text-2xl font-bold mb-4">
+              Your{" "}
+              <span
+                onClick={() => (filter === 7 ? setFilter(30) : setFilter(7))}
+                className="cursor-pointer text-gray-600"
+              >
+                {filter === 7 ? "weekly" : "monthly"}
+              </span>{" "}
+              stats
+            </span>
+          </div>
+          {/* <input
             type="radio"
             name="filter"
             onChange={() => setFilter(7)}
@@ -53,7 +67,7 @@ const Statistics = () => {
             onChange={() => setFilter(30)}
             checked={filter === 30 ? true : false}
           />
-          <label htmlFor="month">Month</label>
+          <label htmlFor="month">Month</label> */}
         </div>
 
         <div className="h-screen lg:h-5/6 lg:grid lg:grid-cols-2 lg:grid-rows-2 gap-2 pb-4 pr-4">

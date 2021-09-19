@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteProject } from "../reducers/projectReducer";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
@@ -45,7 +45,7 @@ const Projects = () => {
                       <tr key={project.id} className="bg-gray-800 text-white">
                         <td className="p-3 rounded-l-md">{project.name}</td>
                         <td className="p-3 hidden md:table-cell text-center">
-                          {project.description}
+                          {project.description.slice(0, 50)}...
                         </td>
                         <td className="p-3  text-center">
                           {new Date(
