@@ -16,11 +16,12 @@ const morganmiddleware = morgan(
 );
 const errorHandler = (error, request, response, next) => {
   console.log("error handler called");
+  console.log(error.name);
 
   if (error.name === "CastError") {
     return response.status(400).send({ error: "malformatted id" });
   } else if (error.name === "ValidationError") {
-    return response.status(400).json({ error: error.message });
+    return response.status(400).json({ error: "Email already exists" });
   } else if (error.name === "JsonWebTokenError") {
     return response.status(401).json({
       error: "invalid token1",

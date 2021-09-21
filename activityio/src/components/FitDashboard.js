@@ -26,7 +26,17 @@ const FitDashboard = () => {
   };
   const fitData = useSelector((state) => state.googleFitData);
   if (!fitData.calories || !fitData.steps || !fitData)
-    return <div>No data available</div>;
+    return (
+      <div>
+        No data available{" "}
+        <GoogleLogout
+          clientId={process.env.REACT_APP_GOOGLECLIENTID}
+          buttonText="Logout"
+          onLogoutSuccess={googleLogout}
+          className="mr-3 ml-3"
+        ></GoogleLogout>
+      </div>
+    );
   else
     return (
       <>

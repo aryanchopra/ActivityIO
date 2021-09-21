@@ -5,14 +5,55 @@ import { ArrowDropDown, ArrowDropUp, Menu } from "@material-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/userReducer";
-import { useHistory } from "react-router-dom";
-const DropDown = ({ DropdownOpen, dropdownref, darkMode, setDarkMode }) => {
+import { logoutGoogleUser } from "../reducers/oauthReducer";
+import { useHistory, Link, useLocation } from "react-router-dom";
+import { useGoogleLogout } from "react-google-login";
+
+const DropDown = ({
+  DropdownOpen,
+  setDropdownOpen,
+  dropdownref,
+  darkMode,
+  setDarkMode,
+}) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const googleLogout = () => {
+    dispatch(logoutGoogleUser());
+  };
+  const logoutFailure = () => {
+    console.log("failure");
+  };
+  const googlesignOut = useGoogleLogout({
+    clientId: process.env.REACT_APP_GOOGLECLIENTID,
+    onLogoutSuccess: googleLogout,
+    onFailure: logoutFailure,
+  });
+  console.log(googlesignOut);
+
   const logout = () => {
+    googlesignOut.signOut();
     dispatch(logoutUser());
     history.push("/");
   };
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (
+        DropdownOpen &&
+        dropdownref.current &&
+        !dropdownref.current.contains(e.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [DropdownOpen]);
   return (
     <AnimatePresence>
       {DropdownOpen && (
@@ -52,24 +93,148 @@ const DropDown = ({ DropdownOpen, dropdownref, darkMode, setDarkMode }) => {
   );
 };
 
+const DropDown2 = ({
+  Dropdown2Open,
+  setDropdown2Open,
+  dropdown2ref,
+  darkMode,
+  setDarkMode,
+}) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("Route changed", location);
+    setDropdown2Open(false);
+  }, [location]);
+  const logout = () => {
+    dispatch(logoutUser());
+    dispatch(logoutGoogleUser());
+    history.push("/");
+  };
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      if (
+        Dropdown2Open &&
+        dropdown2ref.current &&
+        !dropdown2ref.current.contains(e.target)
+      ) {
+        console.log(dropdown2ref.current);
+        console.log(e.target);
+        setDropdown2Open(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [Dropdown2Open]);
+  return (
+    <AnimatePresence>
+      {Dropdown2Open && (
+        <motion.div
+          className="absolute text-black top-10 left-0 bg-gray-100 rounded-md h-screen shadow-md z-50 w-screen"
+          style={{ width: "98vw" }}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{
+            height: `93vh`,
+            opacity: 1,
+          }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.1 }}
+        >
+          <div className="flex-col h-full">
+            <div className="h-1/6  flex items-center justify-center border-b-2">
+              <Link className="w-1/3 mb-5" to={`/addactivity`}>
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                  Activities
+                </button>
+              </Link>
+            </div>
+            <div className="h-1/6  flex items-center justify-center border-b-2">
+              <Link className="w-1/3 mb-5" to={`/projects`}>
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                  Projects
+                </button>
+              </Link>
+            </div>
+            <div className="h-1/6  flex items-center justify-center border-b-2">
+              <Link className="w-1/3 mb-5" to={`/statistics`}>
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                  Statistics
+                </button>
+              </Link>
+            </div>
+            <div className="h-1/6  flex items-center justify-center border-b-2">
+              <Link className="w-1/3 mb-5" to={`/addactivity`}>
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                  Activities
+                </button>
+              </Link>
+            </div>
+            <div className="h-1/6  flex items-center justify-center border-b-2">
+              <span>Dark Mode</span>
+              <div className="p-3 inline-block">
+                <div
+                  className="w-12 relative h-5 flex items-center"
+                  onClick={() => setDarkMode(!darkMode)}
+                >
+                  <div className="rounded-2xl w-16 h-5 bg-gray-700 dark:bg-gray-200"></div>
+                  <div
+                    className="h-6 absolute bg-white w-6 rounded-full transition-all duration-200"
+                    style={{
+                      transform: darkMode ? `translateX(${30}px)` : "none",
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div className="h-1/6 flex items-center justify-center border-b-2">
+              <button onClick={logout}>Logout</button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const Navbar = (props) => {
   const user = useSelector((state) => state.user);
   const [DropdownOpen, setDropdownOpen] = useState(false);
+  const [Dropdown2Open, setDropdown2Open] = useState(false);
   const dropdownref = useRef();
+  const dropdown2ref = useRef();
   return (
     <div
       className="w-full relative min-h-full col-start-1 col-span-12 row-start-1 row-span-1 dark:bg-blue-900 dark:bg-opacity-60"
       style={{ padding: "2.5px" }}
     >
       <div className=" rounded-lg   bg-gray-700 text-gray-300 shadow-md flex  h-full items-center justify-center w-full">
-        <div className="absolute left-3 cursor-pointer lg:hidden">
-          <Menu />
+        <div
+          className="absolute left-3 cursor-pointer lg:hidden"
+          ref={dropdown2ref}
+        >
+          <Menu onClick={() => setDropdown2Open(!Dropdown2Open)} />
+          <DropDown2
+            Dropdown2Open={Dropdown2Open}
+            setDropdown2Open={setDropdown2Open}
+            dropdown2ref={dropdown2ref}
+            darkMode={props.darkMode}
+            setDarkMode={props.setDarkMode}
+          />
         </div>
         <div className="">
           <span className="">Activity IO</span>
         </div>
 
-        <div className="absolute right-3 flex items-center " ref={dropdownref}>
+        <div
+          className="absolute right-3  items-center lg:flex hidden"
+          ref={dropdownref}
+        >
           <span
             className="cursor-pointer"
             onClick={() => setDropdownOpen(!DropdownOpen)}
@@ -86,13 +251,14 @@ const Navbar = (props) => {
               <ArrowDropDown fontSize="large" />
             )}
           </span>
+          <DropDown
+            DropdownOpen={DropdownOpen}
+            setDropdownOpen={setDropdownOpen}
+            dropdownref={dropdownref}
+            darkMode={props.darkMode}
+            setDarkMode={props.setDarkMode}
+          />
         </div>
-        <DropDown
-          DropdownOpen={DropdownOpen}
-          dropdownref={dropdownref}
-          darkMode={props.darkMode}
-          setDarkMode={props.setDarkMode}
-        />
       </div>
     </div>
   );

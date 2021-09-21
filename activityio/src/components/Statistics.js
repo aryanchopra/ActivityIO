@@ -70,7 +70,7 @@ const Statistics = () => {
           <label htmlFor="month">Month</label> */}
         </div>
 
-        <div className="h-screen lg:h-5/6 lg:grid lg:grid-cols-2 lg:grid-rows-2 gap-2 pb-4 pr-4">
+        <div className="lg:h-5/6 lg:grid lg:grid-cols-2 lg:grid-rows-2 gap-2 pb-4 pr-4">
           <GridChartItem>
             <SleepQsleep data={activitydata} />
           </GridChartItem>
