@@ -1,6 +1,7 @@
 import StatCard from "./StatCard";
 
 const Stats = ({ data }) => {
+  console.log(data);
   const timeline = data.filter === 30 ? "month" : "week";
   const averagesleep =
     Math.round(
@@ -31,6 +32,15 @@ const Stats = ({ data }) => {
         100
     ) / 100;
 
+  const averageprojecthours =
+    Math.round(
+      (data.activitydata.reduce((prev, curr) => {
+        return curr.project ? prev + curr.project.hours : prev;
+      }, 0) /
+        data.activitydata.length) *
+        100
+    ) / 100;
+
   return (
     <>
       <StatCard
@@ -48,7 +58,11 @@ const Stats = ({ data }) => {
         caption={`Avg. productivity last ${timeline}`}
         unit="/ 1"
       />
-      <StatCard value={averagesleep} caption={`Avg. sleep last ${timeline}`} />
+      <StatCard
+        value={averageprojecthours}
+        unit="hrs"
+        caption={`Avg. project work last ${timeline}`}
+      />
     </>
   );
 };

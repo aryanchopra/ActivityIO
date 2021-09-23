@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
-import { YlGnBu7 as theme } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
-
+import { useSelector } from "react-redux";
 const Calories = ({ data }) => {
+  const darkMode = useSelector((state) => state.darkMode);
   const chartData = {
     labels: data.map((activity) => activity.date.toDateString().slice(0, -5)),
     datasets: [
@@ -25,13 +25,31 @@ const Calories = ({ data }) => {
       options={{
         maintainAspectRatio: false,
         responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+          x: {
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: "Calories Burnt",
-            color: "Black",
+            color: darkMode ? "White" : "Black",
             font: { weight: "bold", family: "montserrat" },
             position: "bottom",
+          },
+          legend: {
+            labels: {
+              color: darkMode ? "White" : "Black",
+            },
           },
         },
       }}

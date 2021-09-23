@@ -14,8 +14,8 @@ const StatCard = ({ value, caption, unit }) => {
           <span className="text-sm ml-1"> {unit}</span>
         </div>
       </div>
-      <div className="h-1/5 flex justify-center items-center overflow-hidden text-xs whitespace-pre md:text-base">
-        {caption}
+      <div className="h-1/5 flex justify-center items-center  text-xs whitespace-pre md:text-base z-50 overflow-y-visible ">
+        <span className="mb-2 overflow-x-hidden">{caption}</span>
       </div>
     </div>
   );

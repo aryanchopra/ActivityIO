@@ -1,6 +1,8 @@
 import { Line } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 import { Infusion6 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office";
 const ProductivityQDay = ({ data }) => {
+  const darkMode = useSelector((state) => state.darkMode);
   const chartData = {
     labels: data.map((activity) =>
       new Date(activity.date).toDateString().slice(0, -5)
@@ -32,6 +34,8 @@ const ProductivityQDay = ({ data }) => {
                   : null;
               },
               //   anchor: "start",
+
+              color: darkMode ? "White" : "Black",
               clamp: true,
               align: "bottom",
               offset: 1,
@@ -60,9 +64,9 @@ const ProductivityQDay = ({ data }) => {
         borderColor: Infusion6[3],
         backgroundColor: Infusion6[2],
         tension: 0.2,
-        onClick: (e) => {
-          console.log(e);
-        },
+        // onClick: (e) => {
+        //   console.log(e);
+        // },
       },
     ],
   };
@@ -73,21 +77,29 @@ const ProductivityQDay = ({ data }) => {
         maintainAspectRatio: false,
         responsive: true,
         onClick: function (e) {},
-
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+          x: {
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+        },
         plugins: {
           colorschemes: {
             scheme: "Infusion6",
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
+
           title: {
             display: true,
             text: "Productivity, Workouts and Quality of Day",
-            color: "Black",
-            font: { weight: "bold" },
+            color: darkMode ? "White" : "Black",
+            font: { weight: "bold", family: "Inter" },
             position: "bottom",
           },
           legend: {
@@ -95,7 +107,11 @@ const ProductivityQDay = ({ data }) => {
               filter: function (item, chart) {
                 return !item.text.includes("ID");
               },
+              color: darkMode ? "White" : "Black",
             },
+          },
+          datalabels: {
+            color: darkMode ? "Red" : "Black",
           },
         },
       }}

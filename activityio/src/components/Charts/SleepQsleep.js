@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { YlGnBu7 as theme } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
 
 const SleepQsleep = ({ data }) => {
+  const darkMode = useSelector((state) => state.darkMode);
   const chartData = {
     labels: data.map((activity) =>
       new Date(activity.date).toDateString().slice(0, -5)
@@ -42,13 +43,34 @@ const SleepQsleep = ({ data }) => {
       options={{
         maintainAspectRatio: false,
         responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+          x: {
+            ticks: {
+              color: darkMode ? "White" : "Black",
+            },
+          },
+        },
         plugins: {
           title: {
             display: true,
             text: "Sleep and Quality of Sleep",
-            color: "Black",
-            font: { weight: "bold", family: "montserrat" },
+            color: darkMode ? "White" : "Black",
+            font: { weight: "bold", family: "Inter" },
             position: "bottom",
+          },
+          legend: {
+            labels: {
+              filter: function (item, chart) {
+                return !item.text.includes("ID");
+              },
+              color: darkMode ? "White" : "Black",
+            },
           },
         },
       }}
