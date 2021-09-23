@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import NavBtn from "./NavBtn";
 import { updateProject } from "../reducers/projectReducer";
 
 const ProjectForm = ({ project }) => {
@@ -26,7 +26,7 @@ const ProjectForm = ({ project }) => {
   return (
     <div>
       <form
-        className="flex flex-col items-start"
+        className="flex flex-col items-start dark:text-white"
         action=""
         onSubmit={projectForm.handleSubmit}
       >
@@ -38,7 +38,7 @@ const ProjectForm = ({ project }) => {
           name="name"
           onChange={projectForm.handleChange}
           value={projectForm.values.name}
-          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl w-full mt-1"
+          className="forminput"
           required
         />
         <label htmlFor="description" className="mt-1">
@@ -47,7 +47,7 @@ const ProjectForm = ({ project }) => {
         <textarea
           name="description"
           onChange={projectForm.handleChange}
-          className="resize-none bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl w-full mt-1"
+          className="resize-none forminput"
           cols="40"
           rows="5"
           value={projectForm.values.description}
@@ -63,7 +63,7 @@ const ProjectForm = ({ project }) => {
           onChange={(selecteddate) => {
             projectForm.setFieldValue("started", selecteddate);
           }}
-          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl w-full mt-1"
+          className="forminput"
           dateFormat="dd/MM/yyyy"
           required
         />
@@ -95,7 +95,11 @@ const ProjectForm = ({ project }) => {
         </div>
         <div className="flex justify-center w-full mt-2">
           <button
-            className="font-bold bg-blue-400 rounded-md px-4 py-2 min-w-max"
+            className={
+              projectForm.errors.project
+                ? " bg-red-500 rounded-md px-4 py-2 mt-3 min-w-max"
+                : "formbtn"
+            }
             type="submit"
           >
             Update Project
@@ -114,11 +118,7 @@ const EditProject = ({ project }) => {
     return (
       <div className="">
         <div className="flex justify-end px-3 pt-3">
-          <Link to="/projects">
-            <button className="font-bold bg-blue-200 py-2 px-4 rounded-md">
-              All Projects
-            </button>
-          </Link>
+          <NavBtn link="projects" text="All Projects" />
         </div>
         <div className="flex justify-center">
           <ProjectForm project={project} />

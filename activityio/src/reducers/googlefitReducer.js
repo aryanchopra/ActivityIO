@@ -3,7 +3,6 @@ import googleFitService from "../services/googleFit";
 export const initSteps = () => {
   return async (dispatch) => {
     const steps = await googleFitService.getSteps();
-    console.log(steps);
     if (steps) {
       dispatch({
         type: "INIT_STEPS",

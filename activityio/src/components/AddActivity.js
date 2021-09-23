@@ -6,7 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { newActivity } from "../reducers/activityReducer";
 import { toast } from "react-toastify";
+import NavBtn from "./NavBtn";
 const ActivityForm = ({ projectnames }) => {
+  console.log("Activity form rerendered");
   const dispatch = useDispatch();
   const history = useHistory();
   const activitydates = useSelector((state) =>
@@ -64,7 +66,7 @@ const ActivityForm = ({ projectnames }) => {
   });
   return (
     <form
-      className="inline-flex flex-col lg:w-1/3 w-1/2 items-start p-1"
+      className="inline-flex flex-col lg:w-1/3 w-1/2 items-start p-1 dark:text-white"
       action=""
       onSubmit={activityForm.handleSubmit}
     >
@@ -84,7 +86,7 @@ const ActivityForm = ({ projectnames }) => {
           excludeDates={activitydates}
           filterDate={futureDate}
           placeholderText="Activity Date"
-          className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl"
+          className="forminput"
           required
         />
       </div>
@@ -93,7 +95,7 @@ const ActivityForm = ({ projectnames }) => {
       </label>
       <input
         type="number"
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
+        className="forminput"
         min="0"
         max="24"
         name="sleep"
@@ -105,7 +107,7 @@ const ActivityForm = ({ projectnames }) => {
         Quality of Sleep
       </label>
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
+        className="forminput"
         type="number"
         min="1"
         max="10"
@@ -118,7 +120,7 @@ const ActivityForm = ({ projectnames }) => {
         Hours of Workout?
       </label>
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
+        className="forminput"
         type="number"
         min="0"
         max="6"
@@ -158,7 +160,7 @@ const ActivityForm = ({ projectnames }) => {
       </label>
 
       <input
-        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
+        className="forminput"
         type="number"
         min="1"
         max="10"
@@ -197,7 +199,7 @@ const ActivityForm = ({ projectnames }) => {
           <div className="mt-1 w-full lg:flex items-center">
             <select
               name="projectid"
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded lg:w-1/2 w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 shadow focus:shadow-xl"
+              className=" lg:w-1/2  bg-gray-200 dark:bg-gray-400 dark:border-gray-300 dark:focus:bg-gray-100 dark:focus:border-gray-800 dark:text-white dark:focus:text-black appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-700 mt-1 shadow focus:shadow-xl"
               onChange={activityForm.handleChange}
               id="project"
               value={activityForm.values.projectid}
@@ -236,7 +238,7 @@ const ActivityForm = ({ projectnames }) => {
         min="0"
         max="24"
         name="productivehours"
-        className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 mt-1 shadow focus:shadow-xl"
+        className="forminput"
         onChange={activityForm.handleChange}
         value={activityForm.values.productivehours}
         required
@@ -246,8 +248,8 @@ const ActivityForm = ({ projectnames }) => {
         <button
           className={
             activityForm.errors.project
-              ? "font-bold bg-red-400 rounded-md px-4 py-2 mt-3 min-w-max"
-              : "font-bold bg-blue-400 rounded-md px-4 py-2 mt-3 min-w-max"
+              ? " bg-red-500 rounded-md px-4 py-2 mt-3 min-w-max"
+              : "formbtn"
           }
           type="submit"
           disabled={activityForm.errors.project}
@@ -261,22 +263,20 @@ const ActivityForm = ({ projectnames }) => {
 
 const AddActivity = () => {
   const projectnames = useSelector((state) =>
-    state.projects.map((project) => {
-      return {
-        name: project.name,
-        id: project.id,
-      };
-    })
+    state.projects
+      .filter((project) => !project.completed)
+      .map((project) => {
+        return {
+          name: project.name,
+          id: project.id,
+        };
+      })
   );
 
   return (
     <>
       <div className="flex justify-end px-3 pt-3">
-        <Link to="/activities">
-          <button className="font-bold right-1 bg-blue-200 py-2 px-4 rounded-md">
-            All Activities
-          </button>
-        </Link>
+        <NavBtn text="All Activities" link="activities" />
       </div>
 
       {/* <div>

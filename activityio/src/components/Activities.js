@@ -39,7 +39,9 @@ const Activities = () => {
       </Route>
       <Route path="">
         {Activities.length === 0 ? (
-          <span>No activities available</span>
+          <div className="flex justify-center items-center h-full">
+            <span className="text-5xl">No activities logged yet.</span>
+          </div>
         ) : (
           <div className="flex flex-col w-full h-full items-center justify-center">
             <div className="overflow-auto lg:overflow-visible ">

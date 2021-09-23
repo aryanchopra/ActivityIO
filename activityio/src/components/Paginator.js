@@ -11,14 +11,15 @@ const Paginator = ({
   return (
     <div className="mt-3">
       {totalpages.length > 1 &&
-        totalpages.map((page) => {
+        totalpages.map((page, idx) => {
           return (
             <div
               onClick={() => paginate(page)}
+              key={`${page}${idx}`}
               className={
                 page === currentpage
-                  ? "inline-block border-2 border-red-400 rounded-md w-8 text-center mx-1 cursor-pointer"
-                  : "inline-block border-2 border-blue-400 rounded-md w-8 text-center mx-1 cursor-pointer"
+                  ? "inline-block border-2 border-black dark:border-white dark:text-white rounded-md w-8 text-center mx-1 cursor-pointer"
+                  : "inline-block border-2 border-gray-400 dark:text-white rounded-md w-8 text-center mx-1 cursor-pointer"
               }
             >
               {" "}

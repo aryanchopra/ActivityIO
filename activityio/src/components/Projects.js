@@ -22,7 +22,9 @@ const Projects = () => {
       </Route>
       <Route path="">
         {Projects.length === 0 ? (
-          <span>No Projects available</span>
+          <div className="flex justify-center items-center h-full">
+            <span className="text-5xl">No projects added yet.</span>
+          </div>
         ) : (
           <div className="flex flex-col w-full h-full items-center justify-center md:justify-start  mt-6">
             <div className="overflow-auto lg:overflow-visible ">

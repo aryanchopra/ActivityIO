@@ -3,15 +3,18 @@ import { useFormik } from "formik";
 import validator from "validator";
 import { loginUser } from "../reducers/userReducer";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const loginForm = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values) => {
+      console.log("submitted");
       const credentials = {
         email: values.email,
         password: values.password,
@@ -25,6 +28,8 @@ const Login = () => {
             closeOnClick: true,
             progress: undefined,
           });
+
+          history.push("/");
         })
         .catch((err) => {
           toast.error("Invalid username or password", {
@@ -56,7 +61,7 @@ const Login = () => {
         onSubmit={loginForm.handleSubmit}
         className="flex flex-col"
       >
-        <label htmlFor="email" className="self-start mt-2 font-bold ">
+        <label htmlFor="email" className="self-start mt-2 font- ">
           E-mail
         </label>
         <input
@@ -69,9 +74,12 @@ const Login = () => {
           value={loginForm.values.email}
         />
         {loginForm.errors.email && loginForm.touched.email ? (
-          <div className="text-red-400 mt-1"> {loginForm.errors.email} </div>
+          <div className="text-red-600 text-xs mt-1">
+            {" "}
+            {loginForm.errors.email}{" "}
+          </div>
         ) : null}
-        <label htmlFor="Password" className="self-start mt-2 font-bold ">
+        <label htmlFor="Password" className="self-start mt-2 font- ">
           Password
         </label>
         <input
@@ -84,11 +92,14 @@ const Login = () => {
           value={loginForm.values.password}
         />
         {loginForm.errors.password && loginForm.touched.password ? (
-          <div className="text-red-400 mt-1"> {loginForm.errors.password} </div>
+          <div className="text-red-600 text-xs mt-1">
+            {" "}
+            {loginForm.errors.password}{" "}
+          </div>
         ) : null}
         <button
           type="submit"
-          className="bg-blue-500 self-center w-1/2 h-10 mt-3 font-bold rounded-md"
+          className=" self-center w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md mr-4 py-2 px-4"
         >
           Login
         </button>

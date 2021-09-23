@@ -5,9 +5,9 @@ const GridChartItem = (props) => {
         className={
           props.classes
             ? `w-full lg:h-full ${props.classes}`
-            : "w-full lg:min-h-full lg:h-full rounded-md shadow-md"
+            : "w-full lg:min-h-full min-h-270 lg:h-full rounded-md shadow-md"
         }
-        style={{ minHeight: "270px" }}
+        // style={{ minHeight: "270px" }}
       >
         {props.children}
       </div>

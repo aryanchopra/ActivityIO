@@ -1,10 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import validator from "validator";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import SignupService from "../services/auth";
-const Signup = ({ cardState, setCardState }) => {
+import { useHistory } from "react-router-dom";
+const Signup = () => {
+  const history = useHistory();
   const loginForm = useFormik({
     initialValues: {
       fullname: "",
@@ -27,7 +28,7 @@ const Signup = ({ cardState, setCardState }) => {
           closeOnClick: true,
           progress: undefined,
         });
-        setCardState(1);
+        history.push("/login");
       } catch (err) {
         toast.error(err.response.data.error, {
           position: "top-right",
@@ -52,7 +53,9 @@ const Signup = ({ cardState, setCardState }) => {
         ])
       )
         errors.password =
-          "Password must be above 8 characters and have a special character";
+          "Password must be above 8 alphanumeric chracters and have a special character";
+
+      if (!values.fullname.trim()) errors.fullname = "Required";
 
       if (!values.email) errors.email = "Required";
       else {
@@ -69,7 +72,7 @@ const Signup = ({ cardState, setCardState }) => {
         onSubmit={loginForm.handleSubmit}
         className="flex flex-col"
       >
-        <label htmlFor="fullname" className="self-start mt-2 font-bold ">
+        <label htmlFor="fullname" className="self-start mt-2  ">
           Full Name
         </label>
         <input
@@ -80,7 +83,13 @@ const Signup = ({ cardState, setCardState }) => {
           onBlur={loginForm.handleBlur}
           value={loginForm.values.fullname}
         />
-        <label htmlFor="email" className="self-start mt-2 font-bold ">
+        {loginForm.errors.fullname && loginForm.touched.fullname ? (
+          <div className="text-red-600 text-xs mt-1">
+            {" "}
+            {loginForm.errors.fullname}{" "}
+          </div>
+        ) : null}
+        <label htmlFor="email" className="self-start mt-2  ">
           E-mail
         </label>
         <input
@@ -93,9 +102,12 @@ const Signup = ({ cardState, setCardState }) => {
           value={loginForm.values.email}
         />
         {loginForm.errors.email && loginForm.touched.email ? (
-          <div className="text-red-400 mt-1"> {loginForm.errors.email} </div>
+          <div className="text-red-600 text-xs mt-1">
+            {" "}
+            {loginForm.errors.email}{" "}
+          </div>
         ) : null}
-        <label htmlFor="Password" className="self-start mt-2 font-bold ">
+        <label htmlFor="Password" className="self-start mt-2  ">
           Password
         </label>
         <input
@@ -108,11 +120,14 @@ const Signup = ({ cardState, setCardState }) => {
           value={loginForm.values.password}
         />
         {loginForm.errors.password && loginForm.touched.password ? (
-          <div className="text-red-400 mt-1"> {loginForm.errors.password} </div>
+          <div className="text-red-600 text-xs mt-1">
+            {" "}
+            {loginForm.errors.password}{" "}
+          </div>
         ) : null}
         <button
           type="submit"
-          className="bg-blue-500 self-center w-1/2 h-10 mt-3 font-bold rounded-md"
+          className="self-center w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md mr-4 py-2 px-4"
         >
           Sign Up
         </button>
@@ -132,7 +147,7 @@ export default Signup;
 //   return (
 //     <div className="p-4">
 //       <form action="" className="flex flex-col">
-//         <label htmlFor="fullname" className="self-start mt-2 font-bold ">
+//         <label htmlFor="fullname" className="self-start mt-2  ">
 //           Full Name
 //         </label>
 //         <input
@@ -141,7 +156,7 @@ export default Signup;
 //           id="fullname"
 //         />
 
-//         <label htmlFor="email" className="self-start mt-2 font-bold ">
+//         <label htmlFor="email" className="self-start mt-2  ">
 //           E-mail
 //         </label>
 //         <input
@@ -151,7 +166,7 @@ export default Signup;
 //           id="email"
 //         />
 
-//         <label htmlFor="Password" className="self-start mt-2 font-bold ">
+//         <label htmlFor="Password" className="self-start mt-2  ">
 //           Password
 //         </label>
 //         <input
@@ -160,7 +175,7 @@ export default Signup;
 //           className="rounded-md max-h-24 p-1 w-full"
 //           id="password"
 //         />
-//         <button className="bg-blue-500 self-center w-1/2 h-10 mt-3 font-bold rounded-md">
+//         <button className="bg-blue-500 self-center w-1/2 h-10 mt-3  rounded-md">
 //           Sign Up
 //         </button>
 //       </form>

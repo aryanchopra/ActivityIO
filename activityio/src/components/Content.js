@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import AddActivity from "./AddActivity";
 import AddProject from "./AddProject";
@@ -11,35 +11,44 @@ import { initProjects } from "../reducers/projectReducer";
 import { initActivities } from "../reducers/activityReducer";
 
 const Content = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  console.log("Content rerendered");
   useEffect(() => {
+    setLoading(true);
+    console.log("Init");
     dispatch(initProjects());
     dispatch(initActivities());
+    console.log("init end");
+    setLoading(false);
   }, []);
   return (
-    <div className="col-span-12 lg:col-span-10 bg-rose-200 overflow-y-scroll bg-white dark:bg-black dark:bg-opacity-60">
-      <Switch>
-        <Route path="/addactivity">
-          <AddActivity />
-        </Route>
-        <Route path="/activities">
-          <Activities />
-        </Route>
-        <Route path="/projects">
-          <Projects />
-        </Route>
-        <Route path="/addproject">
-          <AddProject />
-        </Route>
-        <Route path="/googlefit">
-          <FitDashboard />
-        </Route>
-        <Route path="/">
-          <Statistics />
-        </Route>
-      </Switch>
+    <div className="col-span-12 lg:col-span-10 bg-rose-200 overflow-y-scroll bg-white dark:bg-gray-800 dark:bg-opacity-80">
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Switch>
+          <Route path="/addactivity">
+            <AddActivity />
+          </Route>
+          <Route path="/activities">
+            <Activities />
+          </Route>
+          <Route path="/projects">
+            <Projects />
+          </Route>
+          <Route path="/addproject">
+            <AddProject />
+          </Route>
+          <Route path="/googlefit">
+            <FitDashboard />
+          </Route>
+          <Route path="/">
+            <Statistics />
+          </Route>
+        </Switch>
+      )}
     </div>
   );
 };
-
 export default React.memo(Content);

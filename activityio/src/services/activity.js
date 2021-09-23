@@ -3,7 +3,6 @@ const BASE_URL = "http://localhost:3003/api/activity";
 
 let token = null;
 const setToken = (newToken) => {
-  console.log("Setting activity service token ");
   token = `bearer ${newToken}`;
 };
 
@@ -11,13 +10,11 @@ const addActivity = async (activity_obj) => {
   const config = {
     headers: { Authorization: token },
   };
-  console.log("services received: ", activity_obj);
   try {
     const response = await axios.post(BASE_URL, activity_obj, config);
     return response.data;
   } catch (err) {
-    console.log(err);
-    console.log("insided services err");
+    console.log("error", err);
   }
 };
 

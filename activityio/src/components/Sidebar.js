@@ -9,7 +9,7 @@ import { loginGoogleUser } from "../reducers/oauthReducer";
 const SidebarLink = ({ text, link }) => {
   return (
     <Link className="w-7/12 mb-5" to={`/${link}`}>
-      <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+      <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
         {text}
       </button>
     </Link>
@@ -17,24 +17,24 @@ const SidebarLink = ({ text, link }) => {
 };
 
 const Sidebar = () => {
+  console.log("Sidebar rerendered");
   const dispatch = useDispatch();
   const googleUser = useSelector((state) => state.googleUser);
   const responseGoogle = (response) => {
-    console.log(response);
     if (response.tokenObj) {
       dispatch(
         loginGoogleUser({
           loggedin: true,
           token: response.tokenObj.access_token,
-          name: response.Ws.Qe,
+          name: response.profileObj.name,
         })
       );
     }
   };
 
   return (
-    <div className="p-2 col-span-2 col-start-1 row-start-1 row-span-2   hidden lg:block mt-12">
-      <div className="bg-gray-100 rounded-2xl h-full">
+    <div className="p-2 col-span-2 col-start-1 row-start-1 row-span-2 dark:bg-gray-800 dark:bg-opacity-80  hidden lg:block mt-12">
+      <div className="bg-gray-100 dark:bg-gray-500 dark:bg-opacity-80 rounded-2xl h-full">
         <div className="flex flex-col items-center justify-center h-full">
           <SidebarLink text="Activities" link="addactivity" />
           <SidebarLink text="Projects" link="addproject" />
@@ -50,7 +50,7 @@ const Sidebar = () => {
                 <button
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
-                  className="bg-gray-600 flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-7/12"
+                  className="bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-7/12"
                 >
                   <FitLogo />
                   <span className="">Fit Login</span>
@@ -60,7 +60,7 @@ const Sidebar = () => {
             />
           ) : (
             <Link className="w-7/12 mb-5" to={`/googlefit`}>
-              <button className="bg-gray-600 flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-full">
+              <button className="bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-full">
                 <FitLogo />
                 <span className="">Fit Stats</span>
               </button>
@@ -72,4 +72,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

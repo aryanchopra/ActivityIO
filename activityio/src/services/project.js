@@ -3,7 +3,6 @@ const BASE_URL = "http://localhost:3003/api/project";
 
 let token = null;
 const setToken = (newToken) => {
-  console.log("Setting project Service token ");
   token = `bearer ${newToken}`;
 };
 

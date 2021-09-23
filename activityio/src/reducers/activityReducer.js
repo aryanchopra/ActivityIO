@@ -3,7 +3,9 @@ import { initProjects } from "./projectReducer";
 export const initActivities = () => {
   return async (dispatch) => {
     try {
+      console.log("loading activities");
       const activities = await activityService.getActivity();
+      console.log("activities loadeed");
       console.log(activities);
       dispatch({
         type: "INIT_ACTIVITIES",

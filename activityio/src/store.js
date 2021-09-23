@@ -6,6 +6,7 @@ import projectReducer from "./reducers/projectReducer";
 import activityReducer from "./reducers/activityReducer";
 import oauthReducer from "./reducers/oauthReducer";
 import googlefitReducer from "./reducers/googlefitReducer";
+import themeReducer from "./reducers/themeReducer";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   activities: activityReducer,
   googleUser: oauthReducer,
   googleFitData: googlefitReducer,
+  darkMode: themeReducer,
 });
 export const store = createStore(
   reducers,
