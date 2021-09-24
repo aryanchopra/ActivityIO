@@ -1,5 +1,7 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3003/api/project";
+const BASE_URL = (process.env.NODE_ENV = "production"
+  ? "/api/project"
+  : "http://localhost:3003/api/project");
 
 let token = null;
 const setToken = (newToken) => {
