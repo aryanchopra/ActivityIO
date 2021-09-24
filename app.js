@@ -14,11 +14,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morganmiddleware);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 app.use("/api/user", userRouter);
 app.use(tokenExtractor);
 app.use("/api/login", loginRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/activity", activityRouter);
 app.use(errorHandler);
-
 module.exports = app;
