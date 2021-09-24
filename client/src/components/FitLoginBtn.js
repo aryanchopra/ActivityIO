@@ -32,7 +32,7 @@ const FitLoginBtn = ({ width }) => {
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
           className={`bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center ${
-            width ? "justify-center" : "justify-between"
+            width ? "justify-center" : "justify-center"
           } hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md ${
             width ? width : "w-7/12"
           }`}
@@ -46,8 +46,7 @@ const FitLoginBtn = ({ width }) => {
   ) : (
     <Link className={`mb-5 ${width ? width : "w-7/12"}`} to={`/googlefit`}>
       <button
-        className={`bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center ${
-          width ? "justify-center" : "justify-between"
+        className={`bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-center
         } hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-full`}
       >
         <FitLogo />

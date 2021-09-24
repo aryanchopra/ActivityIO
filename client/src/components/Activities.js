@@ -69,9 +69,7 @@ const Activities = () => {
                     return (
                       <tr key={activity.id} className="bg-gray-800 text-white">
                         <td className="p-3 rounded-l-md">
-                          {new Date(
-                            new Date(activity.date).toLocaleDateString()
-                          ).toDateString()}
+                          {new Date(activity.date).toLocaleDateString()}
                         </td>
                         <td className="p-3 hidden md:table-cell text-center">
                           {activity.sleep}

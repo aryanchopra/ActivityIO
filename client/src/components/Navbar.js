@@ -125,8 +125,8 @@ const DropDown2 = ({ Dropdown2Open, setDropdown2Open, dropdown2ref }) => {
     <AnimatePresence>
       {Dropdown2Open && (
         <motion.div
-          className="absolute text-black top-10 left-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-50 rounded-md h-screen shadow-md z-50 w-screen"
-          style={{ width: "98vw" }}
+          className="absolute  text-black top-10 left-0 right-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-50 rounded-md h-screen shadow-md z-50 w-screen"
+          style={{ width: "100vw" }}
           initial={{ height: 0, opacity: 0 }}
           animate={{
             height: `93vh`,
@@ -138,21 +138,21 @@ const DropDown2 = ({ Dropdown2Open, setDropdown2Open, dropdown2ref }) => {
           <div className="flex-col h-full">
             <div className="nav2item">
               <Link className="w-1/3 mb-5" to={`/addactivity`}>
-                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
                   Activities
                 </button>
               </Link>
             </div>
             <div className="nav2item">
               <Link className="w-1/3 mb-5" to={`/addproject`}>
-                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
                   Projects
                 </button>
               </Link>
             </div>
             <div className="nav2item">
               <Link className="w-1/3 mb-5" to={`/statistics`}>
-                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
+                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
                   Statistics
                 </button>
               </Link>
@@ -201,10 +201,13 @@ const Navbar = () => {
     >
       <div className=" rounded-lg   bg-gray-700 text-gray-300 shadow-md flex  h-full items-center justify-center w-full">
         <div
-          className="absolute left-3 cursor-pointer lg:hidden"
+          className="absolute left-0 cursor-pointer lg:hidden"
           ref={dropdown2ref}
         >
-          <Menu onClick={() => setDropdown2Open(!Dropdown2Open)} />
+          <Menu
+            className="ml-3"
+            onClick={() => setDropdown2Open(!Dropdown2Open)}
+          />
           <DropDown2
             Dropdown2Open={Dropdown2Open}
             setDropdown2Open={setDropdown2Open}
@@ -212,7 +215,7 @@ const Navbar = () => {
           />
         </div>
         <div className="">
-          <span className="font-monoton text-lg lg:text-2xl">
+          <span className="ml-2 md:ml-0 font-monoton text-lg lg:text-2xl">
             Activity IO{" "}
             <img
               src="img/Activity IO2.png"

@@ -50,9 +50,7 @@ const Projects = () => {
                           {project.description.slice(0, 50)}...
                         </td>
                         <td className="p-3  text-center">
-                          {new Date(
-                            new Date(project.started).toLocaleDateString()
-                          ).toDateString()}
+                          {new Date(project.started).toLocaleDateString()}
                         </td>
                         <td className="p-3 hidden md:table-cell text-center">
                           {project.completed ? "Yes" : "No"}

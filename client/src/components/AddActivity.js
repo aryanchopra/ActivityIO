@@ -94,7 +94,7 @@ const ActivityForm = ({ projectnames }) => {
         />
       </div>
       <label htmlFor="sleep" className="mt-1">
-        Sleep
+        Sleep (hours)
       </label>
       <input
         type="number"
@@ -107,7 +107,7 @@ const ActivityForm = ({ projectnames }) => {
         required
       />
       <label htmlFor="qualityofsleep" className="mt-1">
-        Quality of Sleep
+        Quality of Sleep (1-10)
       </label>
       <input
         className="forminput"
@@ -120,7 +120,7 @@ const ActivityForm = ({ projectnames }) => {
         required
       />
       <label className="mt-1" htmlFor="workout">
-        Hours of Workout?
+        Workout (hours)
       </label>
       <input
         className="forminput"
@@ -159,7 +159,7 @@ const ActivityForm = ({ projectnames }) => {
         />
       </div>
       <label htmlFor="qualityofday" className="mt-1">
-        Quality of Day
+        Quality of Day (1-10)
       </label>
 
       <input
@@ -278,7 +278,7 @@ const AddActivity = () => {
 
   return (
     <>
-      <div className="flex justify-end px-3 pt-3">
+      <div className="flex items-center justify-end h-1/6 px-3 pt-3">
         <NavBtn text="All Activities" link="activities" />
       </div>
 
@@ -287,7 +287,7 @@ const AddActivity = () => {
           Hey Aryan, how was your day?
         </span>
       </div> */}
-      <div className="flex justify-center">
+      <div className="flex h-5/6 justify-center">
         <ActivityForm projectnames={projectnames} />
       </div>
     </>

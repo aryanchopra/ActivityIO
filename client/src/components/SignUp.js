@@ -130,7 +130,7 @@ const Signup = () => {
         ) : null}
         <button
           type="submit"
-          className="self-center w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md mr-4 py-2 px-4"
+          className="self-center w-1/2 md:w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md  py-2 px-4"
           disabled={disableBtn}
         >
           Sign Up
