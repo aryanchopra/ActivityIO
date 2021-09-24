@@ -1,7 +1,9 @@
 import axios from "axios";
-const BASE_URL = (process.env.NODE_ENV = "production"
-  ? "/api/"
-  : "http://localhost:3003/api/");
+// const BASE_URL = "http://localhost:3003/api/";
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "/api/"
+    : "http://localhost:3003/api/";
 
 const login = async (credentials) => {
   console.log("login service called");

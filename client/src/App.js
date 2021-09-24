@@ -8,6 +8,7 @@ import activityService from "./services/activity";
 import projectService from "./services/project";
 import { useHistory } from "react-router-dom";
 function App() {
+  console.log(process.env.NODE_ENV);
   const dispatch = useDispatch();
   const history = useHistory();
   let user = useSelector((state) => state.user);

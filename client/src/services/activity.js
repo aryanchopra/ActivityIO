@@ -1,7 +1,9 @@
 import axios from "axios";
-const BASE_URL = (process.env.NODE_ENV = "production"
-  ? "/api/activity"
-  : "http://localhost:3003/api/activity");
+// const BASE_URL = "http://localhost:3003/api/activity";
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "/api/activity"
+    : "http://localhost:3003/api/activity";
 
 let token = null;
 const setToken = (newToken) => {
