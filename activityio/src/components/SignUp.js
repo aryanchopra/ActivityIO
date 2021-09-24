@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import validator from "validator";
 import { toast } from "react-toastify";
@@ -6,6 +6,7 @@ import SignupService from "../services/auth";
 import { useHistory } from "react-router-dom";
 const Signup = () => {
   const history = useHistory();
+  const [disableBtn, setDisableBtn] = useState(false);
   const loginForm = useFormik({
     initialValues: {
       fullname: "",
@@ -13,6 +14,7 @@ const Signup = () => {
       password: "",
     },
     onSubmit: async (values) => {
+      setDisableBtn(true);
       const credentials = {
         name: values.fullname,
         email: values.email,
@@ -37,6 +39,7 @@ const Signup = () => {
           closeOnClick: true,
           progress: undefined,
         });
+        setDisableBtn(false);
       }
     },
     validate: (values) => {
@@ -128,6 +131,7 @@ const Signup = () => {
         <button
           type="submit"
           className="self-center w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md mr-4 py-2 px-4"
+          disabled={disableBtn}
         >
           Sign Up
         </button>

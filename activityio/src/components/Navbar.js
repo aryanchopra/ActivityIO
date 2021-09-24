@@ -8,6 +8,7 @@ import { logoutGoogleUser } from "../reducers/oauthReducer";
 import { setDarkMode } from "../reducers/themeReducer";
 import { useHistory, Link, useLocation } from "react-router-dom";
 import { useGoogleLogout } from "react-google-login";
+import FitLoginBtn from "./FitLoginBtn";
 
 const DropDown = ({ DropdownOpen, setDropdownOpen, dropdownref }) => {
   const history = useHistory();
@@ -157,11 +158,7 @@ const DropDown2 = ({ Dropdown2Open, setDropdown2Open, dropdown2ref }) => {
               </Link>
             </div>
             <div className="nav2item">
-              <Link className="w-1/3 mb-5" to={`/addactivity`}>
-                <button className="bg-gray-600 hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-4 text-white font-bold rounded-md w-full">
-                  Activities
-                </button>
-              </Link>
+              <FitLoginBtn width="w-1/3" />
             </div>
             <div className="nav2item">
               <span>Dark Mode</span>
@@ -215,7 +212,16 @@ const Navbar = () => {
           />
         </div>
         <div className="">
-          <span className="font-monoton text-lg lg:text-2xl">Activity IO</span>
+          <span className="font-monoton text-lg lg:text-2xl">
+            Activity IO{" "}
+            <img
+              src="img/Activity IO2.png"
+              width="30px"
+              height="30px"
+              alt=""
+              className="inline ml-2"
+            />
+          </span>
         </div>
 
         <div

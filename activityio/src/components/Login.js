@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import validator from "validator";
 import { loginUser } from "../reducers/userReducer";
@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 const Login = () => {
   const dispatch = useDispatch();
+
+  const [disableBtn, setDisableBtn] = useState(false);
   const history = useHistory();
   const loginForm = useFormik({
     initialValues: {
@@ -14,7 +16,7 @@ const Login = () => {
       password: "",
     },
     onSubmit: (values) => {
-      console.log("submitted");
+      setDisableBtn(true);
       const credentials = {
         email: values.email,
         password: values.password,
@@ -39,6 +41,7 @@ const Login = () => {
             closeOnClick: true,
             progress: undefined,
           });
+          setDisableBtn(false);
         });
     },
     validate: (values) => {
@@ -100,6 +103,7 @@ const Login = () => {
         <button
           type="submit"
           className=" self-center w-1/3 h-10 mt-3 bg-gray-600 hover:bg-gray-300 hover:border-gray-100  hover:text-gray-600 text-white rounded-md mr-4 py-2 px-4"
+          disabled={disableBtn}
         >
           Login
         </button>

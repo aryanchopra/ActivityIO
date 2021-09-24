@@ -15,7 +15,14 @@ const Main = () => {
         <div className="w-screen  flex flex-col justify-center items-center h-screen">
           <div className=" text-4xl text-gray-600 md:text-5xl font-monoton   ">
             {" "}
-            Activity IO
+            Activity IO{" "}
+            <img
+              className="inline ml-2 mb-2"
+              src="img/Activity IO.png"
+              width="50px"
+              height="50px"
+              alt=""
+            />
           </div>
           <div className="overflow-hidden mt-3 text-gray-800 text-xl md:text-4xl  changingtext h-11">
             <div className="line text-center ">Record daily activities</div>
@@ -41,6 +48,10 @@ const Main = () => {
             </Link>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-1 text-center w-full">
+        Made with ❤ by{" "}
+        <a href="https://www.github.com/aryanchopra">Aryan Chopra</a>
       </div>
     </div>
   );

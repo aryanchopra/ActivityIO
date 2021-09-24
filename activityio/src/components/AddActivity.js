@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { newActivity } from "../reducers/activityReducer";
@@ -11,6 +11,7 @@ const ActivityForm = ({ projectnames }) => {
   console.log("Activity form rerendered");
   const dispatch = useDispatch();
   const history = useHistory();
+  const [disableBtn, setDisableBtn] = useState(false);
   const activitydates = useSelector((state) =>
     state.activities.map((activity) => new Date(activity.date))
   );
@@ -32,6 +33,8 @@ const ActivityForm = ({ projectnames }) => {
       projecthours: 0,
     },
     onSubmit: async (values) => {
+      setDisableBtn(true);
+
       const formValues = { ...values, date: values.date.toDateString() };
 
       dispatch(newActivity(formValues))
@@ -252,7 +255,7 @@ const ActivityForm = ({ projectnames }) => {
               : "formbtn"
           }
           type="submit"
-          disabled={activityForm.errors.project}
+          disabled={activityForm.errors.project || disableBtn}
         >
           Record Activity
         </button>

@@ -1,11 +1,6 @@
 import React from "react";
-import FitLogo from "./FitLogo";
-import { fitScopes } from "../services/googleFit";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { GoogleLogin } from "react-google-login";
-import { loginGoogleUser } from "../reducers/oauthReducer";
-
+import FitLoginBtn from "./FitLoginBtn";
 const SidebarLink = ({ text, link }) => {
   return (
     <Link className="w-7/12 mb-5" to={`/${link}`}>
@@ -18,19 +13,6 @@ const SidebarLink = ({ text, link }) => {
 
 const Sidebar = () => {
   console.log("Sidebar rerendered");
-  const dispatch = useDispatch();
-  const googleUser = useSelector((state) => state.googleUser);
-  const responseGoogle = (response) => {
-    if (response.tokenObj) {
-      dispatch(
-        loginGoogleUser({
-          loggedin: true,
-          token: response.tokenObj.access_token,
-          name: response.profileObj.name,
-        })
-      );
-    }
-  };
 
   return (
     <div className="p-2 col-span-2 col-start-1 row-start-1 row-span-2 dark:bg-gray-800 dark:bg-opacity-80  hidden lg:block mt-12">
@@ -39,33 +21,7 @@ const Sidebar = () => {
           <SidebarLink text="Activities" link="addactivity" />
           <SidebarLink text="Projects" link="addproject" />
           <SidebarLink text="Statistics" link="" />
-          {!googleUser.loggedin ? (
-            <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLECLIENTID}
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              isSignedIn={true}
-              render={(renderProps) => (
-                <button
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                  className="bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-7/12"
-                >
-                  <FitLogo />
-                  <span className="">Fit Login</span>
-                </button>
-              )}
-              scope={fitScopes}
-            />
-          ) : (
-            <Link className="w-7/12 mb-5" to={`/googlefit`}>
-              <button className="bg-gray-600 dark:bg-gray-300 dark:text-gray-600 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-between hover:bg-gray-300 hover:text-gray-600 shadow-md hover:shadow-lg transition-all py-2 px-3 text-white font-bold rounded-md w-full">
-                <FitLogo />
-                <span className="">Fit Stats</span>
-              </button>
-            </Link>
-          )}
+          <FitLoginBtn />
         </div>
       </div>
     </div>
