@@ -17,9 +17,7 @@ const addActivity = async (activity_obj) => {
   try {
     const response = await axios.post(BASE_URL, activity_obj, config);
     return response.data;
-  } catch (err) {
-    console.log("error", err);
-  }
+  } catch (err) {}
 };
 
 const getActivity = async () => {
@@ -29,9 +27,7 @@ const getActivity = async () => {
   try {
     const response = await axios.get(BASE_URL, config);
     return response.data;
-  } catch (err) {
-    console.log("error", err);
-  }
+  } catch (err) {}
 };
 
 const deleteActivity = async (id) => {
@@ -40,9 +36,7 @@ const deleteActivity = async (id) => {
   };
   try {
     await axios.delete(BASE_URL + `/${id}`, config);
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 const updateActivity = async (updated_activity) => {
@@ -54,7 +48,6 @@ const updateActivity = async (updated_activity) => {
     updated_activity,
     config
   );
-  console.log("response: ", response);
   return response.data;
 };
 

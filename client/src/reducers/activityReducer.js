@@ -3,17 +3,12 @@ import { initProjects } from "./projectReducer";
 export const initActivities = () => {
   return async (dispatch) => {
     try {
-      console.log("loading activities");
       const activities = await activityService.getActivity();
-      console.log("activities loadeed");
-      console.log(activities);
       dispatch({
         type: "INIT_ACTIVITIES",
         data: activities,
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 };
 
@@ -21,7 +16,6 @@ export const newActivity = (Activity) => {
   return async (dispatch) => {
     // try {
     const returnedActivity = await activityService.addActivity(Activity);
-    console.log("inside try block", returnedActivity);
     if (returnedActivity) {
       dispatch({
         type: "NEW_ACTIVITY",
@@ -37,7 +31,6 @@ export const updateActivity = (updated_activity) => {
     const updatedActivity = await activityService.updateActivity(
       updated_activity
     );
-    console.log("updated activity", updatedActivity);
     dispatch({
       type: "UPDATE_ACTIVITY",
       data: updatedActivity,

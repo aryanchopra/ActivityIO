@@ -15,7 +15,6 @@ const addProject = async (project_obj) => {
     headers: { Authorization: token },
   };
   const response = await axios.post(BASE_URL, project_obj, config);
-  console.log(response);
   return response.data;
 };
 
@@ -27,7 +26,7 @@ const getProjects = async () => {
     const response = await axios.get(BASE_URL, config);
     return response.data;
   } catch (err) {
-    console.log("error", err);
+    // console.log("error", err);
   }
 };
 const deleteProject = async (id) => {
@@ -37,8 +36,7 @@ const deleteProject = async (id) => {
   try {
     await axios.delete(BASE_URL + `/${id}`, config);
   } catch (err) {
-    console.log("Inside services catch");
-    console.log(err);
+    // console.log(err);
   }
 };
 
@@ -51,7 +49,6 @@ const updateProject = async (updated_project) => {
     updated_project,
     config
   );
-  console.log("response project: ", response);
   return response.data;
 };
 

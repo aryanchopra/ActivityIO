@@ -64,9 +64,6 @@ const ProductivityQDay = ({ data }) => {
         borderColor: Infusion6[3],
         backgroundColor: Infusion6[2],
         tension: 0.2,
-        // onClick: (e) => {
-        //   console.log(e);
-        // },
       },
     ],
   };

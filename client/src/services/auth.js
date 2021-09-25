@@ -6,7 +6,6 @@ const BASE_URL =
     : "http://localhost:3003/api/";
 
 const login = async (credentials) => {
-  console.log("login service called");
   const response = await axios.post(`${BASE_URL}login`, credentials);
   return response.data;
 };

@@ -26,7 +26,6 @@ const FitDashboard = () => {
     dispatch(logoutGoogleUser());
   };
   const fitData = useSelector((state) => state.googleFitData);
-  console.log(fitData);
   if (!fitData || !fitData.calories || !fitData.steps)
     return (
       <div>

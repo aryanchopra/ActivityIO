@@ -8,7 +8,6 @@ export const loginUser = (credentials) => {
     dispatch(setUser(user));
     activityService.setToken(user.token);
     projectService.setToken(user.token);
-    console.log(`setting tokens inside userreducer`);
     window.localStorage.setItem("loggedinUser", JSON.stringify(user));
   };
 };
@@ -24,7 +23,6 @@ export const logoutUser = () => {
   return (dispatch) => {
     if (window.localStorage.getItem("loggedinUser"))
       window.localStorage.removeItem("loggedinUser");
-    console.log("Logoutcalled");
     dispatch({
       type: "LOGOUT",
     });

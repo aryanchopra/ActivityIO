@@ -4,7 +4,6 @@ const BASE_URL =
 
 let token = null;
 const setToken = (newToken) => {
-  console.log("Setting google fit token ");
   token = `Bearer ${newToken}`;
 };
 
@@ -46,9 +45,7 @@ const getSteps = async () => {
           : null,
       };
     });
-  } catch (error) {
-    console.log("error occured");
-  }
+  } catch (error) {}
 };
 
 const getCalories = async () => {
@@ -81,9 +78,7 @@ const getCalories = async () => {
           : null,
       };
     });
-  } catch (error) {
-    console.log("error occured");
-  }
+  } catch (error) {}
 };
 
 export default { setToken, getSteps, getCalories };

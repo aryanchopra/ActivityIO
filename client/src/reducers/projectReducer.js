@@ -8,9 +8,7 @@ export const initProjects = () => {
         type: "INIT_PROJECTS",
         data: projects,
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 };
 
@@ -27,7 +25,6 @@ export const newProject = (project) => {
 export const updateProject = (updated_project) => {
   return async (dispatch) => {
     const updatedProject = await projectService.updateProject(updated_project);
-    console.log("updated project", updatedProject);
     dispatch({
       type: "UPDATE_PROJECT",
       data: updatedProject,

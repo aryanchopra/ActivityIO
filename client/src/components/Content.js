@@ -13,13 +13,10 @@ import { initActivities } from "../reducers/activityReducer";
 const Content = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  console.log("Content rerendered");
   useEffect(() => {
     setLoading(true);
-    console.log("Init");
     dispatch(initProjects());
     dispatch(initActivities());
-    console.log("init end");
     setLoading(false);
   }, []);
   return (

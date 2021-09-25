@@ -22,7 +22,6 @@ const Signup = () => {
       };
       try {
         const res = await SignupService.register(credentials);
-        console.log(res);
         toast.success("Signed up!", {
           position: "top-right",
           autoClose: 5000,

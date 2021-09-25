@@ -51,7 +51,6 @@ projectRouter.post("/", userExtractor, async (request, response) => {
 projectRouter.put("/:id", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
-  console.log("printing received body", body);
   const receivedproject = {
     name: body.name,
     description: body.description,
@@ -74,7 +73,6 @@ projectRouter.delete("/:id", userExtractor, async (request, response) => {
     response.status(404);
   }
   if (foundProject.user.toString() === request.user.id) {
-    console.log("user matched with project");
     foundProject.activities.map(async (activityid) => {
       const foundActivity = await Activity.findById(activityid);
       foundActivity.project = null;

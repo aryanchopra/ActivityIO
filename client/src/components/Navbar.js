@@ -17,9 +17,7 @@ const DropDown = ({ DropdownOpen, setDropdownOpen, dropdownref }) => {
   const googleLogout = () => {
     dispatch(logoutGoogleUser());
   };
-  const logoutFailure = () => {
-    console.log("failure");
-  };
+  const logoutFailure = () => {};
   const googlesignOut = useGoogleLogout({
     clientId: process.env.REACT_APP_GOOGLECLIENTID,
     onLogoutSuccess: googleLogout,
@@ -109,8 +107,6 @@ const DropDown2 = ({ Dropdown2Open, setDropdown2Open, dropdown2ref }) => {
         dropdown2ref.current &&
         !dropdown2ref.current.contains(e.target)
       ) {
-        console.log(dropdown2ref.current);
-        console.log(e.target);
         setDropdown2Open(false);
       }
     };
@@ -188,7 +184,6 @@ const DropDown2 = ({ Dropdown2Open, setDropdown2Open, dropdown2ref }) => {
 };
 
 const Navbar = () => {
-  console.log("Navbar rerendered");
   const user = useSelector((state) => state.user);
   const [DropdownOpen, setDropdownOpen] = useState(false);
   const [Dropdown2Open, setDropdown2Open] = useState(false);

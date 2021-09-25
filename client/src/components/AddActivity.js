@@ -8,7 +8,6 @@ import { newActivity } from "../reducers/activityReducer";
 import { toast } from "react-toastify";
 import NavBtn from "./NavBtn";
 const ActivityForm = ({ projectnames }) => {
-  console.log("Activity form rerendered");
   const dispatch = useDispatch();
   const history = useHistory();
   const [disableBtn, setDisableBtn] = useState(false);

@@ -1,7 +1,6 @@
 import StatCard from "./StatCard";
 
 const Stats = ({ data }) => {
-  console.log(data);
   const timeline = data.filter === 30 ? "month" : "week";
   const averagesleep =
     Math.round(

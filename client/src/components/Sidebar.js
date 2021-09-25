@@ -12,8 +12,6 @@ const SidebarLink = ({ text, link }) => {
 };
 
 const Sidebar = () => {
-  console.log("Sidebar rerendered");
-
   return (
     <div className="p-2 col-span-2 col-start-1 row-start-1 row-span-2 dark:bg-gray-800 dark:bg-opacity-80  hidden lg:block mt-12">
       <div className="bg-gray-100 dark:bg-gray-500 dark:bg-opacity-80 rounded-2xl h-full">

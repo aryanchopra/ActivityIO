@@ -24,7 +24,6 @@ activityRouter.get("/:id", userExtractor, async (request, response) => {
 activityRouter.post("/", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
-  console.log(body.date);
   if (!user) {
     response.status(401).json({
       error: "Invalid Token",
@@ -70,7 +69,6 @@ activityRouter.post("/", userExtractor, async (request, response) => {
 activityRouter.put("/:id", userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
-  console.log("Body: ", body);
   const receivedactivity = {
     date: body.date ? body.date : Date.now(),
     sleep: body.sleep,
@@ -92,11 +90,8 @@ activityRouter.put("/:id", userExtractor, async (request, response) => {
   };
 
   const existingActivity = await Activity.findById(request.params.id);
-  console.log(existingActivity);
   if (existingActivity.project === null || !existingActivity.project.id) {
-    console.log("No project exists for existing activity");
     if (body.project === "yes") {
-      console.log("Update project from null");
       const foundProject = await Project.findById(body.projectid);
       foundProject.hours = foundProject.hours + body.projecthours;
       foundProject.activities = foundProject.activities.concat(
@@ -105,10 +100,7 @@ activityRouter.put("/:id", userExtractor, async (request, response) => {
       foundProject.save();
     }
   } else {
-    console.log("Existing Project exists");
-
     if (body.project === "no") {
-      console.log("Removing project from existing activity");
       const prevProject = await Project.findById(existingActivity.project.id);
       prevProject.hours = prevProject.hours - existingActivity.project.hours;
       prevProject.activities = prevProject.activities.filter(
@@ -117,7 +109,6 @@ activityRouter.put("/:id", userExtractor, async (request, response) => {
       prevProject.save();
     } else {
       if (existingActivity.project.id.toString() === body.projectid) {
-        console.log("Updating the same project");
         const foundProject = await Project.findById(body.projectid);
         foundProject.hours =
           foundProject.hours -
@@ -125,7 +116,6 @@ activityRouter.put("/:id", userExtractor, async (request, response) => {
           body.projecthours;
         foundProject.save();
       } else {
-        console.log("Project changed");
         const prevProject = await Project.findById(existingActivity.project.id);
         prevProject.hours = prevProject.hours - existingActivity.project.hours;
         prevProject.activities = prevProject.activities.filter(
@@ -155,7 +145,6 @@ activityRouter.delete("/:id", userExtractor, async (request, response) => {
   if (!foundActivity) {
     response.status(404);
   }
-  console.log(foundActivity);
   if (foundActivity.user.toString() === request.user.id) {
     if (foundActivity.project.id) {
       const foundProject = await Project.findById(foundActivity.project.id);

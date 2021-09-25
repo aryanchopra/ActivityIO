@@ -11,7 +11,6 @@ import Stats from "./Charts/Stats";
 
 const Statistics = () => {
   const [loading, setLoading] = useState(false);
-  console.log("Stats rendered");
   const [filter, setFilter] = useState(30);
   let activitydata = useSelector((state) => state.activities);
   activitydata = activitydata
@@ -33,7 +32,6 @@ const Statistics = () => {
   //   The filter ensures the activities returned by the useSelector are within the filter range selected
   const projectdata = useSelector((state) => state.projects);
 
-  console.log(activitydata, projectdata);
   Chart.register(ChartDataLabels);
   if (activitydata.length === 0) {
     return (

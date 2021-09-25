@@ -4,9 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 loginRouter.post("/", async (request, response, next) => {
-  console.log("Login router called");
   const body = request.body;
-  console.log(body);
   if (!body.email || !body.password) {
     return response.status(400).send({
       error: "Provide username and password",
