@@ -10,7 +10,6 @@ import Projectpie from "./Charts/ProjectPie";
 import Stats from "./Charts/Stats";
 
 const Statistics = () => {
-  const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(30);
   let activitydata = useSelector((state) => state.activities);
   activitydata = activitydata
