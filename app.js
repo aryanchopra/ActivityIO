@@ -24,4 +24,12 @@ app.use("/api/login", loginRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/activity", activityRouter);
 app.use(errorHandler);
+app.get("/*", (req, res) => {
+  let url = path.join(__dirname, "/client/build", "index.html");
+  console.log(url);
+  if (!url.startsWith("/app/"))
+    // we're on local windows
+    url = url.substring(1);
+  res.sendFile(url);
+});
 module.exports = app;

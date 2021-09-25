@@ -6,7 +6,7 @@ require("express-async-errors");
 
 projectRouter.get("/", userExtractor, async (request, response) => {
   const projects = await Project.find({ user: request.user.id });
-  response.json(projects);
+  response.status(200).json(projects);
 });
 
 projectRouter.get("/:id", userExtractor, async (request, response) => {
