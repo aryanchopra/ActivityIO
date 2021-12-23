@@ -37,7 +37,7 @@ A web app to improve lifestyle through visualization by observing patterns, moni
 `Password`: Test123$
 
 ## Screenshots
-
+![Statistics](Stats.PNG)
 
 ## Run Locally
 
