@@ -38,6 +38,9 @@ A web app to improve lifestyle through visualization by observing patterns, moni
 
 ## Screenshots
 ![Statistics](Stats.PNG)
+![AddActivity](AddActivity.PNG)
+![GoogleFit](GoogleFit.PNG)
+![Activities](Activities.PNG)
 
 ## Run Locally
 
