@@ -93,5 +93,5 @@ You can get your Google Client API key by logging in to your Google account at h
 
 ## License
 
-[MIT License](https://github.com/aryanchopra/CleanMyPlaylist/blob/master/LICENSE) Copyright (c) 2021 Aryan Chopra
+[MIT License](https://github.com/aryanchopra/ActivityIO/blob/master/LICENSE) Copyright (c) 2021 Aryan Chopra
 
