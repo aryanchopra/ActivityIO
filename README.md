@@ -1,7 +1,7 @@
 
 # ActivityIO
 
-A web app to monitor daily activities through visualization to help one learn better about themselves by observing patterns to bring a positive change in daily habits.
+A web app to improve lifestyle through visualization by observing patterns, monitoring daily activities and bring about positive change 
 
 
 ## Technology Stack
