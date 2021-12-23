@@ -32,6 +32,10 @@ A web app to improve lifestyle through visualization by observing patterns, moni
 
 [ActivityIO](https://activityio2.herokuapp.com/)
 
+### Demo Credentials
+`Email`: test@gmail.com
+`Password`: Test123$
+
 ## Screenshots
 
 
